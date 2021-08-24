@@ -5,6 +5,7 @@ import BookingsComponent from './components/Bookings/BookingsComponent';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import PageNotFound from './components/PageNotFound';
+import Contact from './components/Contact/Contact';
 
 function App() {
   return (
@@ -18,8 +19,11 @@ function App() {
           <Route path='/bookings'>
             <BookingsComponent />
           </Route>
+          <Route path='/contact'>
+            <Contact />
+          </Route>
           <Route path='*'>
-            <PageNotFound></PageNotFound>
+            <PageNotFound />
           </Route>
         </Switch>
       </Router>
