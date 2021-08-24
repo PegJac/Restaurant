@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { menuItems } from "./menuItems";
 
 const MenuComponent: FC = () => {
-  const itemsOnTheMenu = menuItems.map((item) => {
+  const itemsOnTheMenu = menuItems.map((item, i) => {
     return (
-      <div>
+      <div key={i}>
         <div>{item.name}</div>
         <div>
           {item.price.toLocaleString("sv-se", {
