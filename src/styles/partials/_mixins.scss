@@ -25,3 +25,9 @@
     color: $textColor;
   }
 }
+
+@mixin media($bp) {
+  @media screen and (max-width: $bp) {
+    @content;
+  }
+}

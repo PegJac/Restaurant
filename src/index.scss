@@ -1,4 +1,6 @@
-@use "./styles/partials/mixins";
+@import "./styles/partials/mixins";
+
+@import "styles/bookings-page";
 
 body {
   margin: 0;
@@ -7,6 +9,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 code {
