@@ -16,11 +16,18 @@ import { db } from "../../firebase";
 
 //interfaces
 import { ISitting } from "./../models/ISitting";
+import { GuestInfoComponent } from "./ChildComponents/GuestInfoComponent";
 interface IBookingState {
   numberOfGuests: number | null;
   date: string | null;
   sitting: string | null;
   numberOfTables: number | null;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  number: string | null;
+  acceptedGDPR: boolean | null;
+  bookingReference: string | null;
 }
 
 //Parent component
@@ -38,6 +45,12 @@ const BookingsComponent: FC = () => {
     date: null,
     sitting: null,
     numberOfTables: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    number: null,
+    acceptedGDPR: null,
+    bookingReference: null
   });
 
   //controlling number of guests
@@ -85,6 +98,15 @@ const BookingsComponent: FC = () => {
     sitting18: false,
     sitting21: false,
   });
+
+  const updateUserInformation = (name: string, value: string) => {
+    const newInfoObj: { [key: string]: string } = {}
+    newInfoObj[name] = value
+    setBookingState((prevState) => {
+      return { ...prevState, ...newInfoObj };
+    });
+  };
+
   //scroll into next section when that state of the previous is updated
   useEffect(() => {
     if (sittingRef.current) {
@@ -111,7 +133,7 @@ const BookingsComponent: FC = () => {
       });
     }
   }, [datePicked]);
-  useEffect(() => {}, [sittingPicked]);
+  useEffect(() => { }, [sittingPicked]);
 
   useEffect(() => {
     console.log("State updated: ", bookingState);
@@ -136,6 +158,7 @@ const BookingsComponent: FC = () => {
           />
         </div>
       )}
+      <GuestInfoComponent updateInformation={updateUserInformation} />
     </main>
   );
 };

@@ -15,7 +15,6 @@ const CalanderComponent = ({ change }: CalanderProp) => {
       themeSystem={"standard"}
       selectable={true}
       handleWindowResize={true}
-      hiddenDays={[1, 2]}
       headerToolbar={{
         start: "title",
         center: "",
