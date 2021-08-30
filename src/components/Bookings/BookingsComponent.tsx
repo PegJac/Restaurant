@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useRef } from 'react';
+import randomstring from 'randomstring';
 
 //child components
 import Buttons from './ChildComponents/Buttons';
@@ -26,7 +27,7 @@ interface IBookingState {
   lastName: string | null;
   email: string | null;
   number: string | null;
-  acceptedGDPR: boolean | null;
+  acceptedGDPR: string | null;
   bookingReference: string | null;
 }
 
@@ -38,6 +39,7 @@ const BookingsComponent: FC = () => {
   });
 
   const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
+  const bookingReference = randomstring.generate(18);
 
   //Booking options saved in state
   const [bookingState, setBookingState] = useState<IBookingState>({
@@ -49,8 +51,8 @@ const BookingsComponent: FC = () => {
     lastName: null,
     email: null,
     number: null,
-    acceptedGDPR: false,
-    bookingReference: null,
+    acceptedGDPR: null,
+    bookingReference: bookingReference,
   });
 
   //controlling number of guests
@@ -106,6 +108,14 @@ const BookingsComponent: FC = () => {
     });
   };
 
+  const submitBooking = () => {
+    console.log('hello i work');
+    const { firstName, lastName, email, number, acceptedGDPR } = bookingState;
+    if (!firstName || !lastName || !email || !number || acceptedGDPR === 'false') {
+      return console.log('missing something');
+    }
+    db.collection('bookings').add(bookingState);
+  };
   //scroll into next section when that state of the previous is updated
   useEffect(() => {
     if (sittingRef.current) {
@@ -154,7 +164,7 @@ const BookingsComponent: FC = () => {
           <SittingsComponents updateSitting={updateSitting} availableTables={sittingAvailability} />
         </div>
       )}
-      <GuestInfoComponent updateInformation={updateUserInformation} />
+      <GuestInfoComponent updateInformation={updateUserInformation} submitBooking={submitBooking} />
     </main>
   );
 };
