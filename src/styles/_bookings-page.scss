@@ -1,0 +1,111 @@
+@import "./partials/mixins";
+
+$page-margin: 2.3rem;
+
+.App {
+  .bookings-page {
+    width: 100%;
+    overflow: hidden;
+    @include center-col;
+
+    text-align: center;
+
+    h1 {
+      font-size: 3.5rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+    }
+
+    .bookings-page__buttons {
+      display: grid;
+      grid-template-columns: repeat(6, auto);
+      grid-template-rows: repeat(2, auto);
+      gap: 0.6rem;
+      padding: $page-margin 0;
+      transition: all ease 0.3s;
+      place-items: center;
+
+      @include media(550px) {
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(3, auto);
+      }
+
+      .selected {
+        filter: brightness(0.8);
+        transform: scale(1.15);
+      }
+    }
+
+    .bookings-page__calander-container {
+      width: 35%;
+      height: 100vh;
+      animation: slide-in-bottom 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      margin: 2rem 0;
+      padding: 3rem 0;
+
+      p {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+    }
+    @-webkit-keyframes slide-in-bottom {
+      0% {
+        -webkit-transform: translateY(1000px);
+        transform: translateY(1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slide-in-bottom {
+      0% {
+        -webkit-transform: translateY(1000px);
+        transform: translateY(1000px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .bookings-page__sittings-container {
+      height: 100vh;
+      width: 100%;
+
+      .bookings-page__sittings {
+        width: 100%;
+
+        .sittings__radio-container {
+          @include center-row;
+          label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            gap: 1rem;
+            margin: 0;
+
+            hr {
+              border: 1px dotted black;
+              width: 35%;
+            }
+          }
+
+          .sittings__radio-container__inner-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
