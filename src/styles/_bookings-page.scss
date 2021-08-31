@@ -1,4 +1,4 @@
-@import "./partials/mixins";
+@import './partials/mixins';
 
 $page-margin: 2.3rem;
 
@@ -14,9 +14,9 @@ $page-margin: 2.3rem;
       font-size: 3.5rem;
     }
 
-    p {
-      font-size: 1.6rem;
-    }
+    // p {
+    //   font-size: 1.6rem;
+    // }
 
     .bookings-page__buttons {
       display: grid;
@@ -104,6 +104,32 @@ $page-margin: 2.3rem;
             align-items: center;
             gap: 1rem;
           }
+        }
+      }
+    }
+    .bookings-page__guest-information {
+      margin-top: $page-margin;
+      height: 100vh;
+      width: 100%;
+      form {
+        margin: 5rem;
+        @include center-col;
+
+        div {
+          margin: 0.2rem;
+        }
+
+        .form__input-fields {
+          width: 60%;
+        }
+
+        .form-submit {
+          @include center-col;
+          gap: 1rem;
+          padding: 2rem;
+          margin-top: 2rem;
+          background-color: hsl(25, 100%, 97%);
+          border-radius: 3px;
         }
       }
     }
