@@ -29,7 +29,9 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
         }}
       />
 
-      <button type='button'>Book</button>
+      <button type='button' onClick={props.submitBooking}>
+        Book
+      </button>
     </div>
   );
 }
