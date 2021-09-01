@@ -39,8 +39,9 @@ const BookingsComponent: FC = () => {
     idField: 'id',
   });
 
-  //   const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
+  const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
   const bookingReference = randomstring.generate(18);
+
   const initialBookingState = {
     numberOfGuests: null,
     date: null,
@@ -116,22 +117,20 @@ const BookingsComponent: FC = () => {
     setBookingState((prevState) => {
       return { ...prevState, ...userInfomation };
     });
+    setBookingAllowed(true);
   };
 
-  const submitBooking = () => {
-    console.log('hello i work');
-    const { firstName, lastName, email, number, acceptedGDPR } = bookingState;
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !number ||
-      acceptedGDPR === false
-    ) {
-      return console.log('missing something');
+  //triggered when the user info form is submitted
+  useEffect(() => {
+    //TODO: *Revise and fix validation, **make this an async function, ***empty state upon successful post request
+    //check that all of bookingState's properties are truthies
+    let isBookingPossible = Object.values(bookingState).every(Boolean);
+    if (isBookingPossible) {
+      bookingsCollectionRef.add(bookingState).then((res) => {
+        console.log('Request sucessful: ', res);
+      });
     }
-    db.collection('bookings').add(bookingState);
-  };
+  }, [bookingAllowed]);
 
   //scroll into next section when that state of the previous is updated
   useEffect(() => {
@@ -181,12 +180,9 @@ const BookingsComponent: FC = () => {
           />
         </div>
       )}
-      {sittingPicked && (
+      {datePicked && numberOfGuestsPicked && sittingPicked && (
         <div className="bookings-page__guest-information" ref={guestInfoRef}>
-          <GuestInfoComponent
-            updateInformation={updateUserInformation}
-            submitBooking={submitBooking}
-          />
+          <GuestInfoComponent updateInformation={updateUserInformation} />
         </div>
       )}
     </main>

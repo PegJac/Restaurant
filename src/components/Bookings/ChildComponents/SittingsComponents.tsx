@@ -1,5 +1,5 @@
-import React from "react";
-import { ISitting } from "../../models/ISitting";
+import React from 'react';
+import { ISitting } from '../../models/ISitting';
 // import blob1 from "./../../../svgs/blob1.svg";
 // import blob2 from "./../../../svgs/blob2.svg";
 
@@ -9,8 +9,6 @@ interface ISittingComponentInterface {
 }
 
 const SittingsComponents = (props: ISittingComponentInterface) => {
-  console.log(props.availableTables);
-
   return (
     <section className="bookings-page__sittings">
       <h2>Pick a sitting:</h2>
@@ -20,7 +18,7 @@ const SittingsComponents = (props: ISittingComponentInterface) => {
       >
         <div
           className={`sittings__radio-container ${
-            props.availableTables.sitting18 ? "" : "unClickable"
+            props.availableTables.sitting18 ? '' : 'unClickable'
           }`}
         >
           <label htmlFor="18:00">
@@ -40,7 +38,7 @@ const SittingsComponents = (props: ISittingComponentInterface) => {
 
         <div
           className={`sittings__radio-container ${
-            props.availableTables.sitting21 ? "" : "unClickable"
+            props.availableTables.sitting21 ? '' : 'unClickable'
           }`}
         >
           <label htmlFor="21:00">
