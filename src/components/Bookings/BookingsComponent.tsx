@@ -18,11 +18,13 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase";
 
 //interfaces
-import { ISitting } from "./../models/ISitting";
+
+import { ISitting } from "../models/ISitting";
 import { GuestInfoComponent } from "./ChildComponents/GuestInfoComponent";
 import { IFormInterface } from "../models/IFormInterface";
 import { ISendEmail } from "../models/ISendEmail";
 import { IBookingState } from "../models/IBookingState";
+
 //Parent component
 const BookingsComponent: FC = () => {
   const bookingsCollectionRef = db.collection("bookings");

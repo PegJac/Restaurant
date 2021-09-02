@@ -1,4 +1,4 @@
-import { IFormInterface } from "./IFormInterface";
+import { IFormInterface } from './IFormInterface';
 
 export interface IGuestInfoComponent {
   updateInformation: (userInfomation: IFormInterface) => void;
