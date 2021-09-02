@@ -18,7 +18,6 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase";
 
 //interfaces
-
 import { ISitting } from "../models/ISitting";
 import { GuestInfoComponent } from "./ChildComponents/GuestInfoComponent";
 import { IFormInterface } from "../models/IFormInterface";
@@ -145,7 +144,6 @@ const BookingsComponent: FC = () => {
       );
     // console.log('Email sent with these credentials', emailSendOutCredentials);
   };
-
   //triggered when the user info form is submitted
   useEffect(() => {
     //TODO: *Revise and fix validation, **make this an async function, ***empty state upon successful post request
