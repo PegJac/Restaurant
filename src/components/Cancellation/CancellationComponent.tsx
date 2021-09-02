@@ -4,7 +4,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
 import { Redirect, useParams } from 'react-router';
 import { db } from '../../firebase';
-import { IBookingState } from '../../models/IBookingState';
+// import { IBookingState } from "./../../models/IBookingState"
 
 function CancellationComponent() {
   const bookingsCollectionRef = db.collection('bookings');

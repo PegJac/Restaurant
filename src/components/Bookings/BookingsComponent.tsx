@@ -16,9 +16,9 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase';
 
 //interfaces
-import { ISitting } from './../models/ISitting';
+import { ISitting } from './../../models/ISitting';
 import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
-import { IFormInterface } from '../models/IFormInterface';
+import { IFormInterface } from './../../models/IFormInterface';
 interface IBookingState {
   numberOfGuests: number | null;
   date: string | null;
