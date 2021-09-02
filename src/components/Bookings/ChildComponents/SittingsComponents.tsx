@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISitting } from '../../models/ISitting';
+import { ISitting } from './../../../models/ISitting';
 // import blob1 from "./../../../svgs/blob1.svg";
 // import blob2 from "./../../../svgs/blob2.svg";
 

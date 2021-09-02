@@ -1,4 +1,4 @@
-import { IGuestInfoComponent } from '../../models/IGuestInfoComponent';
+import { IGuestInfoComponent } from './../../../models/IGuestInfoComponent';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
 import { useForm, Controller } from 'react-hook-form';
-import { IFormInterface } from '../../models/IFormInterface';
+import { IFormInterface } from './../../../models/IFormInterface';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 export function GuestInfoComponent(props: IGuestInfoComponent) {
