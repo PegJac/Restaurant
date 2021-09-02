@@ -3,26 +3,29 @@ import LandingPageComponent from './components/LandingPageComponent';
 import MenuComponent from './components/Menu/MenuComponent';
 import BookingsComponent from './components/Bookings/BookingsComponent';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PageNotFound from './components/PageNotFound';
 import Contact from './components/Contact/Contact';
-
+import { BookingConfirmation } from './components/Bookings/BookingConfirmation';
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Router>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <LandingPageComponent />
             <MenuComponent />
           </Route>
-          <Route path='/bookings'>
+          <Route path="/bookings">
             <BookingsComponent />
           </Route>
-          <Route path='/contact'>
+          <Route path="/confirmation">
+            <BookingConfirmation />
+          </Route>
+          <Route path="/contact">
             <Contact />
           </Route>
-          <Route path='*'>
+          <Route path="*">
             <PageNotFound />
           </Route>
         </Switch>
