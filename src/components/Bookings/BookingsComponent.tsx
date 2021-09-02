@@ -19,8 +19,7 @@ import { db } from '../../firebase';
 import { ISitting } from './../models/ISitting';
 import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
 import { IFormInterface } from '../models/IFormInterface';
-
-export interface IBookingState {
+interface IBookingState {
   numberOfGuests: number | null;
   date: string | null;
   sitting: string | null;
@@ -157,7 +156,6 @@ const BookingsComponent: FC = () => {
       });
     }
   }, [datePicked]);
-  useEffect(() => { }, [sittingPicked]);
 
   useEffect(() => {
     console.log('State updated: ', bookingState);
