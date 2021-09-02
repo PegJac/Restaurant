@@ -1,33 +1,33 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
-import randomstring from 'randomstring';
-import emailjs from 'emailjs-com';
-import { useHistory } from 'react-router-dom';
+import React, { FC, useEffect, useState, useRef } from "react";
+import randomstring from "randomstring";
+import emailjs from "emailjs-com";
+import { useHistory } from "react-router-dom";
 
 //child components
-import Buttons from './ChildComponents/Buttons';
-import CalanderComponent from './ChildComponents/CalanderComponent';
-import SittingsComponents from './ChildComponents/SittingsComponents';
+import Buttons from "./ChildComponents/Buttons";
+import CalanderComponent from "./ChildComponents/CalanderComponent";
+import SittingsComponents from "./ChildComponents/SittingsComponents";
 
 //utils
-import { countNumberOfTables } from './../../utils/countNumOfTables';
+import { countNumberOfTables } from "./../../utils/countNumOfTables";
 
 // import "firebase/firestore";
 
 //DB
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { db } from '../../firebase';
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { db } from "../../firebase";
 
 //interfaces
-import { ISitting } from './../models/ISitting';
-import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
-import { IFormInterface } from '../models/IFormInterface';
-import { ISendEmail } from '../models/ISendEmail';
-import { IBookingState } from '../models/IBookingState';
+import { ISitting } from "./../models/ISitting";
+import { GuestInfoComponent } from "./ChildComponents/GuestInfoComponent";
+import { IFormInterface } from "../models/IFormInterface";
+import { ISendEmail } from "../models/ISendEmail";
+import { IBookingState } from "../models/IBookingState";
 //Parent component
 const BookingsComponent: FC = () => {
-  const bookingsCollectionRef = db.collection('bookings');
+  const bookingsCollectionRef = db.collection("bookings");
   const [snapshot, error] = useCollectionData(bookingsCollectionRef, {
-    idField: 'id',
+    idField: "id",
   });
 
   const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
@@ -36,13 +36,13 @@ const BookingsComponent: FC = () => {
 
   const initialBookingState: IBookingState = {
     numberOfGuests: 0!,
-    date: '',
-    sitting: '',
+    date: "",
+    sitting: "",
     numberOfTables: 0!,
-    firstName: '',
-    lastName: '',
-    email: '',
-    number: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    number: "",
     acceptedGDPR: false,
     bookingReference: bookingReference,
   };
@@ -122,23 +122,23 @@ const BookingsComponent: FC = () => {
       booking_reference: bookingState.bookingReference,
     };
     const redirect = () => {
-      history.push('/confirmation');
+      history.push("/confirmation");
     };
     emailjs
       .send(
-        'service_cmdfzwo',
-        'template_32mibab',
+        "service_cmdfzwo",
+        "template_32mibab",
         emailSendOutCredentials,
-        'user_WFe2FaWw3TmyNA4ufQBU3'
+        "user_WFe2FaWw3TmyNA4ufQBU3"
       )
       .then(
         (result) => {
-          console.log('SUCCESS!', result.status, result.text);
+          console.log("SUCCESS!", result.status, result.text);
           redirect();
         },
         (error) => {
-          console.log('FAILED...', error);
-          alert('Your booking did not go trough, please try again later');
+          console.log("FAILED...", error);
+          alert("Your booking did not go trough, please try again later");
         }
       );
     // console.log('Email sent with these credentials', emailSendOutCredentials);
@@ -151,7 +151,7 @@ const BookingsComponent: FC = () => {
     let isBookingPossible = Object.values(bookingState).every(Boolean);
     if (isBookingPossible) {
       bookingsCollectionRef.add(bookingState).then((res) => {
-        console.log('Request sucessful: ', res);
+        console.log("Request sucessful: ", res);
         sendEmail();
       });
     }
@@ -170,7 +170,7 @@ const BookingsComponent: FC = () => {
 
       snapshot.forEach((bookingInDB) => {
         if (date === bookingInDB.date) {
-          bookingInDB.sitting === '18:00'
+          bookingInDB.sitting === "18:00"
             ? (numberOfBookedTables18 += bookingInDB.numberOfTables)
             : (numberOfBookedTables21 += bookingInDB.numberOfTables);
         }
@@ -183,7 +183,7 @@ const BookingsComponent: FC = () => {
   }, [datePicked]);
 
   useEffect(() => {
-    console.log('State updated: ', bookingState);
+    console.log("State updated: ", bookingState);
   }, [bookingState]);
 
   return (
@@ -198,7 +198,7 @@ const BookingsComponent: FC = () => {
         </div>
       )}
       {datePicked && numberOfGuestsPicked && (
-        <div ref={sittingRef} className={'bookings-page__sittings-container'}>
+        <div ref={sittingRef} className={"bookings-page__sittings-container"}>
           <SittingsComponents
             updateSitting={updateSitting}
             availableTables={sittingAvailability}
