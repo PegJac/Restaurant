@@ -18,6 +18,8 @@ import { db } from '../../firebase';
 //interfaces
 import { ISitting } from './../models/ISitting';
 import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
+import { IFormInterface } from '../models/IFormInterface';
+
 export interface IBookingState {
   numberOfGuests: number | null;
   date: string | null;
@@ -27,22 +29,21 @@ export interface IBookingState {
   lastName: string | null;
   email: string | null;
   number: string | null;
-  acceptedGDPR: string | null;
+  acceptedGDPR: boolean;
   bookingReference: string | null;
 }
 
 //Parent component
 const BookingsComponent: FC = () => {
   const bookingsCollectionRef = db.collection('bookings');
-  const [snapshot, loading, error] = useCollectionData(bookingsCollectionRef, {
+  const [snapshot, error] = useCollectionData(bookingsCollectionRef, {
     idField: 'id',
   });
 
   const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
   const bookingReference = randomstring.generate(18);
 
-  //Booking options saved in state
-  const [bookingState, setBookingState] = useState<IBookingState>({
+  const initialBookingState = {
     numberOfGuests: null,
     date: null,
     sitting: null,
@@ -51,12 +52,17 @@ const BookingsComponent: FC = () => {
     lastName: null,
     email: null,
     number: null,
-    acceptedGDPR: null,
+    acceptedGDPR: false,
     bookingReference: bookingReference,
-  });
+  };
+
+  //Booking options saved in state
+  const [bookingState, setBookingState] =
+    useState<IBookingState>(initialBookingState);
 
   //controlling number of guests
-  const [numberOfGuestsPicked, setNumberOfGuestsPicked] = useState<boolean>(false);
+  const [numberOfGuestsPicked, setNumberOfGuestsPicked] =
+    useState<boolean>(false);
   const updateNumberOfGuests = (numberOfGuests: number) => {
     setBookingState((prevState) => {
       //prevState is a copy of bookingState because we should never mutate state directly
@@ -68,6 +74,7 @@ const BookingsComponent: FC = () => {
     });
     setNumberOfGuestsPicked(!numberOfGuestsPicked);
   };
+
   //scroll into next section when that state of the previous is updated
   useEffect(() => {
     if (calanderRef.current) {
@@ -88,6 +95,7 @@ const BookingsComponent: FC = () => {
   //controlling sittings
   const sittingRef = useRef(null);
   const [sittingPicked, setSittingPicked] = useState<boolean>(false);
+  const guestInfoRef = useRef(null);
 
   const updateSitting = (sitting: string) => {
     setBookingState((prevState) => {
@@ -95,27 +103,36 @@ const BookingsComponent: FC = () => {
     });
     setSittingPicked(true);
   };
+  useEffect(() => {
+    if (guestInfoRef.current) {
+      (guestInfoRef.current! as HTMLElement).scrollIntoView();
+    }
+  }, [sittingPicked]);
+
   const [sittingAvailability, setSittingAvailability] = useState<ISitting>({
     sitting18: false,
     sitting21: false,
   });
 
-  const updateUserInformation = (name: string, value: string | boolean) => {
-    const newInfoObj: { [key: string]: string | boolean } = {};
-    newInfoObj[name] = value;
+  const updateUserInformation = (userInfomation: IFormInterface) => {
     setBookingState((prevState) => {
-      return { ...prevState, ...newInfoObj };
+      return { ...prevState, ...userInfomation };
     });
+    setBookingAllowed(true);
   };
 
-  const submitBooking = () => {
-    console.log('hello i work');
-    const { firstName, lastName, email, number, acceptedGDPR } = bookingState;
-    if (!firstName || !lastName || !email || !number || acceptedGDPR === 'false') {
-      return console.log('missing something');
+  //triggered when the user info form is submitted
+  useEffect(() => {
+    //TODO: *Revise and fix validation, **make this an async function, ***empty state upon successful post request
+    //check that all of bookingState's properties are truthies
+    let isBookingPossible = Object.values(bookingState).every(Boolean);
+    if (isBookingPossible) {
+      bookingsCollectionRef.add(bookingState).then((res) => {
+        console.log('Request sucessful: ', res);
+      });
     }
-    db.collection('bookings').add(bookingState);
-  };
+  }, [bookingAllowed]);
+
   //scroll into next section when that state of the previous is updated
   useEffect(() => {
     if (sittingRef.current) {
@@ -134,8 +151,6 @@ const BookingsComponent: FC = () => {
             : (numberOfBookedTables21 += bookingInDB.numberOfTables);
         }
       });
-      console.log('18', numberOfBookedTables18);
-      console.log('21', numberOfBookedTables21);
       setSittingAvailability({
         sitting18: numberOfBookedTables18 < 16,
         sitting21: numberOfBookedTables21 < 16,
@@ -149,22 +164,29 @@ const BookingsComponent: FC = () => {
   }, [bookingState]);
 
   return (
-    <main className='bookings-page'>
+    <main className="bookings-page">
       <h1>Bookings</h1>
       <p>How many guests are there in your party?</p>
       <Buttons setNumberOfGuests={updateNumberOfGuests} />
       {numberOfGuestsPicked && (
-        <div className='bookings-page__calander-container' ref={calanderRef}>
+        <div className="bookings-page__calander-container" ref={calanderRef}>
           <p>Sounds great! What date do you wish to visit us?</p>
           <CalanderComponent change={updateDate} />
         </div>
       )}
       {datePicked && numberOfGuestsPicked && (
         <div ref={sittingRef} className={'bookings-page__sittings-container'}>
-          <SittingsComponents updateSitting={updateSitting} availableTables={sittingAvailability} />
+          <SittingsComponents
+            updateSitting={updateSitting}
+            availableTables={sittingAvailability}
+          />
         </div>
       )}
-      <GuestInfoComponent updateInformation={updateUserInformation} submitBooking={submitBooking} />
+      {datePicked && numberOfGuestsPicked && sittingPicked && (
+        <div className="bookings-page__guest-information" ref={guestInfoRef}>
+          <GuestInfoComponent updateInformation={updateUserInformation} />
+        </div>
+      )}
     </main>
   );
 };
