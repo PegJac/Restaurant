@@ -1,4 +1,5 @@
+import { IFormInterface } from './IFormInterface';
+
 export interface IGuestInfoComponent {
-  updateInformation: (name: string, value: string) => void;
-  submitBooking: () => void;
+  updateInformation: (userInfomation: IFormInterface) => void;
 }

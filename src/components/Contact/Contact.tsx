@@ -1,3 +1,5 @@
+import GoogleMap from './GoogleMap';
+
 function Contact() {
   return (
     <div>
@@ -16,6 +18,9 @@ function Contact() {
         </div>
         <div className='loaction'>
           <h2>Where to find us </h2>
+          <div className='map'>
+            <GoogleMap></GoogleMap>
+          </div>
           <div>
             <address>
               <a className='adress' href=''>
@@ -31,7 +36,6 @@ function Contact() {
           </div>
         </div>
       </div>
-      <div className='mapSection'>Google maps location here</div>
     </div>
   );
 }
