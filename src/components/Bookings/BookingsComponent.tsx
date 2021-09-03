@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState, useRef } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useEffect, useState, useRef } from 'react';
 import randomstring from 'randomstring';
 
 //child components
@@ -8,8 +9,9 @@ import SittingsComponents from './ChildComponents/SittingsComponents';
 
 //utils
 import { countNumberOfTables } from './../../utils/countNumOfTables';
-
-// import "firebase/firestore";
+import { checkAvailability } from './../../utils/checkAvailability';
+import { updateComplexBookingObject } from '../../utils/updateComplexBookingObject';
+import { scrollToElement } from '../../utils/scrollToElement';
 
 //DB
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -19,18 +21,10 @@ import { db } from '../../firebase';
 import { ISitting } from './../../models/ISitting';
 import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
 import { IFormInterface } from './../../models/IFormInterface';
-interface IBookingState {
-  numberOfGuests: number | null;
-  date: string | null;
-  sitting: string | null;
-  numberOfTables: number | null;
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-  number: string | null;
-  acceptedGDPR: boolean;
-  bookingReference: string | null;
-}
+import {
+  IBookingState,
+  initialBookingState,
+} from './../../models/IBookingState';
 
 //Parent component
 const BookingsComponent: FC = () => {
@@ -39,73 +33,58 @@ const BookingsComponent: FC = () => {
     idField: 'id',
   });
 
-  const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
-  const bookingReference = randomstring.generate(18);
-
-  const initialBookingState = {
-    numberOfGuests: null,
-    date: null,
-    sitting: null,
-    numberOfTables: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    number: null,
-    acceptedGDPR: false,
-    bookingReference: bookingReference,
-  };
-
-  //Booking options saved in state
+  /** Booking properties saved in state */
   const [bookingState, setBookingState] =
     useState<IBookingState>(initialBookingState);
 
-  //controlling number of guests
+  /** State for every individual child component - when true, the emelent will be scrolled into view with help from the scrollToElement fn */
   const [numberOfGuestsPicked, setNumberOfGuestsPicked] =
     useState<boolean>(false);
+  const [datePicked, setDatePicked] = useState<boolean>(false);
+  const [sittingPicked, setSittingPicked] = useState<boolean>(false);
+
+  /** State for the entire booking object - when true, the booking will be submittible to cloud firestore */
+  const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
+
+  /** Reference to each child compoent */
+  const calanderRef = useRef(null);
+  const sittingRef = useRef(null);
+  const guestInfoRef = useRef(null);
+
   const updateNumberOfGuests = (numberOfGuests: number) => {
-    setBookingState((prevState) => {
-      //prevState is a copy of bookingState because we should never mutate state directly
-      return {
-        ...prevState,
-        numberOfGuests: numberOfGuests,
-        numberOfTables: countNumberOfTables(numberOfGuests),
-      };
-    });
+    const numberOfGuestsObj = {
+      numberOfGuests,
+      numberOfTables: countNumberOfTables(numberOfGuests),
+    };
+    updateComplexBookingObject(setBookingState, numberOfGuestsObj);
     setNumberOfGuestsPicked(!numberOfGuestsPicked);
   };
 
-  //scroll into next section when that state of the previous is updated
+  const resetBooking = () => {
+    updateComplexBookingObject(setBookingState, initialBookingState);
+    setNumberOfGuestsPicked(false);
+    setDatePicked(false);
+    setNumberOfGuestsPicked(false);
+    setBookingAllowed(false);
+  };
+
+  /** useEffects that will be used to scroll into the next part of the booking process */
   useEffect(() => {
-    if (calanderRef.current) {
-      (calanderRef.current! as HTMLElement).scrollIntoView();
-    }
+    scrollToElement(calanderRef);
   }, [numberOfGuestsPicked]);
 
   //controlling the calander settings
-  const [datePicked, setDatePicked] = useState<boolean>(false);
-  const calanderRef = useRef(null);
   const updateDate = (date: string) => {
-    setBookingState((prevState) => {
-      return { ...prevState, date: date };
-    });
+    updateComplexBookingObject(setBookingState, { date });
     setDatePicked(!datePicked);
   };
 
-  //controlling sittings
-  const sittingRef = useRef(null);
-  const [sittingPicked, setSittingPicked] = useState<boolean>(false);
-  const guestInfoRef = useRef(null);
-
   const updateSitting = (sitting: string) => {
-    setBookingState((prevState) => {
-      return { ...prevState, sitting: sitting };
-    });
-    setSittingPicked(true);
+    updateComplexBookingObject(setBookingState, { sitting });
+    setSittingPicked(!sittingPicked);
   };
   useEffect(() => {
-    if (guestInfoRef.current) {
-      (guestInfoRef.current! as HTMLElement).scrollIntoView();
-    }
+    scrollToElement(guestInfoRef);
   }, [sittingPicked]);
 
   const [sittingAvailability, setSittingAvailability] = useState<ISitting>({
@@ -114,45 +93,40 @@ const BookingsComponent: FC = () => {
   });
 
   const updateUserInformation = (userInfomation: IFormInterface) => {
-    setBookingState((prevState) => {
-      return { ...prevState, ...userInfomation };
-    });
-    setBookingAllowed(true);
+    const userInfoObj = {
+      ...userInfomation,
+      bookingReference: randomstring.generate(18),
+    };
+    updateComplexBookingObject(setBookingState, userInfoObj);
+    setBookingAllowed(!bookingAllowed);
   };
 
   //triggered when the user info form is submitted
   useEffect(() => {
-    //TODO: *Revise and fix validation, **make this an async function, ***empty state upon successful post request
     //check that all of bookingState's properties are truthies
     let isBookingPossible = Object.values(bookingState).every(Boolean);
     if (isBookingPossible) {
       bookingsCollectionRef.add(bookingState).then((res) => {
-        console.log('Request sucessful: ', res);
+        if (res) {
+          //empty state
+          resetBooking();
+        }
       });
     }
   }, [bookingAllowed]);
 
-  //scroll into next section when that state of the previous is updated
   useEffect(() => {
-    if (sittingRef.current) {
-      (sittingRef.current! as HTMLElement).scrollIntoView();
-    }
+    scrollToElement(sittingRef);
 
     if (snapshot && !error) {
+      console.log(snapshot);
       const { date } = bookingState;
-      let numberOfBookedTables18 = 0;
-      let numberOfBookedTables21 = 0;
-
-      snapshot.forEach((bookingInDB) => {
-        if (date === bookingInDB.date) {
-          bookingInDB.sitting === '18:00'
-            ? (numberOfBookedTables18 += bookingInDB.numberOfTables)
-            : (numberOfBookedTables21 += bookingInDB.numberOfTables);
-        }
-      });
+      const [numberOfBookedTables18, numberOfBookedTables21, error] =
+        checkAvailability(snapshot, date!);
       setSittingAvailability({
-        sitting18: numberOfBookedTables18 < 16,
-        sitting21: numberOfBookedTables21 < 16,
+        //following statements will be evaluated as a boolean
+        sitting18: numberOfBookedTables18! < 16,
+        sitting21: numberOfBookedTables21! < 16,
       });
     }
   }, [datePicked]);

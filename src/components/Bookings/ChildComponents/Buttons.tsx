@@ -1,5 +1,5 @@
-import React, { ReactNode, useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const SingleButton = styled.button`
   border: 0;
@@ -21,29 +21,21 @@ interface IButtons {
 
 const Buttons = (props: IButtons) => {
   const listOfButtons: JSX.Element[] = [];
-
-  const [currentlySelectedButton, setCurrentlySelectedButton] =
-    useState<HTMLButtonElement>();
+  const [lastPickedNumber, setLastPickedNumber] = useState<number>();
 
   function addButtons(): void {
     for (let i = 0; i < 12; i++) {
+      const numberPickedByGuest = i + 1;
       listOfButtons.push(
         <SingleButton
           key={i}
+          className={lastPickedNumber === numberPickedByGuest ? 'selected' : ''}
           onClick={(e) => {
-            const buttonClassList = (e.target as HTMLButtonElement).classList;
-            if (!buttonClassList.contains("selected")) {
-              buttonClassList.add("selected");
-              // removeClassFromOldButton(e.target as HTMLButtonElement);
-            } else {
-              buttonClassList.remove("selected");
-            }
+            const chosenNumber = i + 1;
+            setLastPickedNumber(chosenNumber);
 
             //update the parent state
             props.setNumberOfGuests(i + 1);
-
-            //store the current index in child state
-            // setCurrentlySelectedButton(e.target as HTMLButtonElement);
           }}
         >
           {i + 1}
@@ -51,10 +43,6 @@ const Buttons = (props: IButtons) => {
       );
     }
   }
-
-  // function removeClassFromOldButton(element: HTMLButtonElement): void {
-  //   element.classList.remove("selected");
-  // }
 
   addButtons();
   return <div className="bookings-page__buttons">{listOfButtons}</div>;
