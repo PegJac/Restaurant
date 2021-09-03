@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState, useRef } from "react";
 import randomstring from "randomstring";
-import emailjs from "emailjs-com";
-import { useHistory } from "react-router-dom";
 
 //child components
 import Buttons from "./ChildComponents/Buttons";
@@ -27,7 +25,7 @@ import {
   IBookingState,
   initialBookingState,
 } from "./../../models/IBookingState";
-import { ISendEmail } from "../models/ISendEmail";
+import { sendEmail } from "../../utils/emailSendOut";
 
 //Parent component
 const BookingsComponent: FC = () => {
@@ -35,8 +33,6 @@ const BookingsComponent: FC = () => {
   const [snapshot, error] = useCollectionData(bookingsCollectionRef, {
     idField: "id",
   });
-
-  const history = useHistory();
 
   /** Booking properties saved in state */
   const [bookingState, setBookingState] =
@@ -106,37 +102,6 @@ const BookingsComponent: FC = () => {
     setBookingAllowed(!bookingAllowed);
   };
 
-  const sendEmail = () => {
-    const emailSendOutCredentials: ISendEmail = {
-      first_name: bookingState.firstName!,
-      last_name: bookingState.lastName!,
-      booked_date: bookingState.date!,
-      booked_time: bookingState.sitting!,
-      user_email: bookingState.email!,
-      booking_reference: bookingState.bookingReference!,
-    };
-    const redirect = () => {
-      history.push("/confirmation");
-    };
-    emailjs
-      .send(
-        "service_cmdfzwo",
-        "template_32mibab",
-        emailSendOutCredentials,
-        "user_WFe2FaWw3TmyNA4ufQBU3"
-      )
-      .then(
-        (result) => {
-          console.log("SUCCESS!", result.status, result.text);
-          redirect();
-        },
-        (error) => {
-          console.log("FAILED...", error);
-          alert("Your booking did not go trough, please try again later");
-        }
-      );
-    // console.log('Email sent with these credentials', emailSendOutCredentials);
-  };
   //triggered when the user info form is submitted
   useEffect(() => {
     //check that all of bookingState's properties are truthies
@@ -145,7 +110,7 @@ const BookingsComponent: FC = () => {
       bookingsCollectionRef.add(bookingState).then((res) => {
         if (res) {
           //empty state
-          sendEmail();
+          sendEmail(bookingState);
           resetBooking();
         }
       });
