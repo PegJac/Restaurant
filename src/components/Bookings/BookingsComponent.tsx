@@ -1,37 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useEffect, useState, useRef } from 'react';
-import randomstring from 'randomstring';
+import { FC, useEffect, useState, useRef } from "react";
+import randomstring from "randomstring";
+import emailjs from "emailjs-com";
+import { useHistory } from "react-router-dom";
 
 //child components
-import Buttons from './ChildComponents/Buttons';
-import CalanderComponent from './ChildComponents/CalanderComponent';
-import SittingsComponents from './ChildComponents/SittingsComponents';
+import Buttons from "./ChildComponents/Buttons";
+import CalanderComponent from "./ChildComponents/CalanderComponent";
+import SittingsComponents from "./ChildComponents/SittingsComponents";
 
 //utils
-import { countNumberOfTables } from './../../utils/countNumOfTables';
-import { checkAvailability } from './../../utils/checkAvailability';
-import { updateComplexBookingObject } from '../../utils/updateComplexBookingObject';
-import { scrollToElement } from '../../utils/scrollToElement';
+import { countNumberOfTables } from "./../../utils/countNumOfTables";
+import { checkAvailability } from "./../../utils/checkAvailability";
+import { updateComplexBookingObject } from "../../utils/updateComplexBookingObject";
+import { scrollToElement } from "../../utils/scrollToElement";
 
 //DB
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { db } from '../../firebase';
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { db } from "../../firebase";
 
 //interfaces
-import { ISitting } from './../../models/ISitting';
-import { GuestInfoComponent } from './ChildComponents/GuestInfoComponent';
-import { IFormInterface } from './../../models/IFormInterface';
+import { ISitting } from "./../../models/ISitting";
+import { GuestInfoComponent } from "./ChildComponents/GuestInfoComponent";
+import { IFormInterface } from "./../../models/IFormInterface";
 import {
   IBookingState,
   initialBookingState,
-} from './../../models/IBookingState';
+} from "./../../models/IBookingState";
+import { ISendEmail } from "../models/ISendEmail";
 
 //Parent component
 const BookingsComponent: FC = () => {
-  const bookingsCollectionRef = db.collection('bookings');
+  const bookingsCollectionRef = db.collection("bookings");
   const [snapshot, error] = useCollectionData(bookingsCollectionRef, {
-    idField: 'id',
+    idField: "id",
   });
+
+  const history = useHistory();
 
   /** Booking properties saved in state */
   const [bookingState, setBookingState] =
@@ -101,6 +106,37 @@ const BookingsComponent: FC = () => {
     setBookingAllowed(!bookingAllowed);
   };
 
+  const sendEmail = () => {
+    const emailSendOutCredentials: ISendEmail = {
+      first_name: bookingState.firstName!,
+      last_name: bookingState.lastName!,
+      booked_date: bookingState.date!,
+      booked_time: bookingState.sitting!,
+      user_email: bookingState.email!,
+      booking_reference: bookingState.bookingReference!,
+    };
+    const redirect = () => {
+      history.push("/confirmation");
+    };
+    emailjs
+      .send(
+        "service_cmdfzwo",
+        "template_32mibab",
+        emailSendOutCredentials,
+        "user_WFe2FaWw3TmyNA4ufQBU3"
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.status, result.text);
+          redirect();
+        },
+        (error) => {
+          console.log("FAILED...", error);
+          alert("Your booking did not go trough, please try again later");
+        }
+      );
+    // console.log('Email sent with these credentials', emailSendOutCredentials);
+  };
   //triggered when the user info form is submitted
   useEffect(() => {
     //check that all of bookingState's properties are truthies
@@ -109,6 +145,7 @@ const BookingsComponent: FC = () => {
       bookingsCollectionRef.add(bookingState).then((res) => {
         if (res) {
           //empty state
+          sendEmail();
           resetBooking();
         }
       });
@@ -123,6 +160,7 @@ const BookingsComponent: FC = () => {
       const { date } = bookingState;
       const [numberOfBookedTables18, numberOfBookedTables21, error] =
         checkAvailability(snapshot, date!);
+
       setSittingAvailability({
         //following statements will be evaluated as a boolean
         sitting18: numberOfBookedTables18! < 16,
@@ -132,7 +170,7 @@ const BookingsComponent: FC = () => {
   }, [datePicked]);
 
   useEffect(() => {
-    console.log('State updated: ', bookingState);
+    console.log("State updated: ", bookingState);
   }, [bookingState]);
 
   return (
@@ -147,7 +185,7 @@ const BookingsComponent: FC = () => {
         </div>
       )}
       {datePicked && numberOfGuestsPicked && (
-        <div ref={sittingRef} className={'bookings-page__sittings-container'}>
+        <div ref={sittingRef} className={"bookings-page__sittings-container"}>
           <SittingsComponents
             updateSitting={updateSitting}
             availableTables={sittingAvailability}
