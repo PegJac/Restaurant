@@ -4,7 +4,6 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
 import { Redirect, useParams } from 'react-router';
 import { db } from '../../firebase';
-// import { IBookingState } from "./../../models/IBookingState"
 
 function CancellationComponent() {
   const bookingsCollectionRef = db.collection('bookings');
@@ -20,7 +19,7 @@ function CancellationComponent() {
 
   let { bookingReference } = useParams<IParams>();
 
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<firebase.firestore.DocumentData>();
 
   useEffect(() => {
     snapshot?.map((booking) => {
@@ -30,15 +29,13 @@ function CancellationComponent() {
     });
   }, [snapshot]);
 
-  console.log(redirect);
+  function deleteBooking() {
+    db.collection('bookings').doc(data?.id).delete();
+    setRedirect(true);
+  }
 
   if (redirect) {
     return <Redirect to="/confirmCancellation" />;
-  }
-
-  function deleteBooking() {
-    db.collection('bookings').doc(data.id).delete();
-    setRedirect(true);
   }
 
   return (
