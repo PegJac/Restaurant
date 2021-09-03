@@ -26,6 +26,7 @@ import {
   initialBookingState,
 } from "./../../models/IBookingState";
 import { sendEmail } from "../../utils/emailSendOut";
+import Spinner from "./ChildComponents/Spinner";
 
 //Parent component
 const BookingsComponent: FC = () => {
@@ -43,6 +44,7 @@ const BookingsComponent: FC = () => {
     useState<boolean>(false);
   const [datePicked, setDatePicked] = useState<boolean>(false);
   const [sittingPicked, setSittingPicked] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   /** State for the entire booking object - when true, the booking will be submittible to cloud firestore */
   const [bookingAllowed, setBookingAllowed] = useState<boolean>(false);
@@ -100,6 +102,7 @@ const BookingsComponent: FC = () => {
     };
     updateComplexBookingObject(setBookingState, userInfoObj);
     setBookingAllowed(!bookingAllowed);
+    setLoading(true);
   };
 
   //triggered when the user info form is submitted
@@ -110,8 +113,9 @@ const BookingsComponent: FC = () => {
       bookingsCollectionRef.add(bookingState).then((res) => {
         if (res) {
           //empty state
+          setBookingAllowed(false);
           sendEmail(bookingState);
-          resetBooking();
+          // resetBooking();
         }
       });
     }
@@ -139,30 +143,33 @@ const BookingsComponent: FC = () => {
   }, [bookingState]);
 
   return (
-    <main className="bookings-page">
-      <h1>Bookings</h1>
-      <p>How many guests are there in your party?</p>
-      <Buttons setNumberOfGuests={updateNumberOfGuests} />
-      {numberOfGuestsPicked && (
-        <div className="bookings-page__calander-container" ref={calanderRef}>
-          <p>Sounds great! What date do you wish to visit us?</p>
-          <CalanderComponent change={updateDate} />
-        </div>
-      )}
-      {datePicked && numberOfGuestsPicked && (
-        <div ref={sittingRef} className={"bookings-page__sittings-container"}>
-          <SittingsComponents
-            updateSitting={updateSitting}
-            availableTables={sittingAvailability}
-          />
-        </div>
-      )}
-      {datePicked && numberOfGuestsPicked && sittingPicked && (
-        <div className="bookings-page__guest-information" ref={guestInfoRef}>
-          <GuestInfoComponent updateInformation={updateUserInformation} />
-        </div>
-      )}
-    </main>
+    <>
+      <Spinner visible={loading} />
+      <main className="bookings-page">
+        <h1>Bookings</h1>
+        <p>How many guests are there in your party?</p>
+        <Buttons setNumberOfGuests={updateNumberOfGuests} />
+        {numberOfGuestsPicked && (
+          <div className="bookings-page__calander-container" ref={calanderRef}>
+            <p>Sounds great! What date do you wish to visit us?</p>
+            <CalanderComponent change={updateDate} />
+          </div>
+        )}
+        {datePicked && numberOfGuestsPicked && (
+          <div ref={sittingRef} className={"bookings-page__sittings-container"}>
+            <SittingsComponents
+              updateSitting={updateSitting}
+              availableTables={sittingAvailability}
+            />
+          </div>
+        )}
+        {datePicked && numberOfGuestsPicked && sittingPicked && (
+          <div className="bookings-page__guest-information" ref={guestInfoRef}>
+            <GuestInfoComponent updateInformation={updateUserInformation} />
+          </div>
+        )}
+      </main>
+    </>
   );
 };
 
