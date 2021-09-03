@@ -18,4 +18,4 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
-export const db = firebase.firestore();
+export const db = firebase.firestore()
