@@ -1,16 +1,20 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
+import { useTrail, animated } from "react-spring";
 
-const SingleButton = styled.button`
+const config = { mass: 1, tension: 180, friction: 12 };
+
+export const SingleButton = styled.button`
   border: 0;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   font-size: 1.8rem;
   transition: all 0.3s ease;
+  background-color: #ffaf75;
 
   &:hover {
-    filter: brightness(0.8);
+    filter: brightness(1.11);
     transform: scale(1.15);
   }
 `;
@@ -29,8 +33,12 @@ const Buttons = (props: IButtons) => {
       listOfButtons.push(
         <SingleButton
           key={i}
-          className={lastPickedNumber === numberPickedByGuest ? 'selected' : ''}
+          className={lastPickedNumber === numberPickedByGuest ? "selected" : ""}
           onClick={(e) => {
+            // const thisElementsClasses = (e.target as HTMLInputElement)
+            //   .classList;
+            // thisElementsClasses.contains("selected") &&
+            //   thisElementsClasses.remove("selected");
             const chosenNumber = i + 1;
             setLastPickedNumber(chosenNumber);
 
@@ -45,7 +53,24 @@ const Buttons = (props: IButtons) => {
   }
 
   addButtons();
-  return <div className="bookings-page__buttons">{listOfButtons}</div>;
+
+  const trail = useTrail(listOfButtons.length, {
+    config,
+    from: { opacity: 0, y: -4 },
+    to: { opacity: 1, y: 0 },
+  });
+
+  return (
+    <div className="bookings-page__buttons">
+      {trail.map((styles, i) => {
+        return (
+          <animated.div style={styles} key={i}>
+            {listOfButtons[i]}
+          </animated.div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Buttons;
