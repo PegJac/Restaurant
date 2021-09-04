@@ -1,13 +1,13 @@
-import { IGuestInfoComponent } from './../../../models/IGuestInfoComponent';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
+import { IGuestInfoComponent } from "./../../../models/IGuestInfoComponent";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
-import { useForm, Controller } from 'react-hook-form';
-import { IFormInterface } from './../../../models/IFormInterface';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import { useForm, Controller } from "react-hook-form";
+import { IFormInterface } from "./../../../models/IFormInterface";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export function GuestInfoComponent(props: IGuestInfoComponent) {
   const { control, handleSubmit } = useForm();
@@ -19,7 +19,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
 
   return (
     <>
-      <h2>Please fill out the following information</h2>
+      <h5>Please fill out the following information</h5>
       <form onSubmit={handleSubmit(formSubmitionHandler)}>
         <div className="form__input-fields">
           <Controller
@@ -40,7 +40,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                 error={invalid}
                 fullWidth
                 helperText={
-                  invalid && 'First name must be between 2-15 characters long'
+                  invalid && "First name must be between 2-15 characters long"
                 }
               />
             )}
@@ -63,7 +63,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                 error={invalid}
                 fullWidth
                 helperText={
-                  invalid && 'Last name must be between 2-15 characters long'
+                  invalid && "Last name must be between 2-15 characters long"
                 }
               />
             )}
@@ -85,7 +85,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                 onChange={onChange}
                 error={invalid}
                 fullWidth
-                helperText={invalid && 'Please enter a valid email adress'}
+                helperText={invalid && "Please enter a valid email adress"}
               />
             )}
           />
@@ -105,7 +105,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                 variant="outlined"
                 error={invalid}
                 fullWidth
-                helperText={invalid && 'Please enter a valid phone number'}
+                helperText={invalid && "Please enter a valid phone number"}
                 onChange={onChange}
               />
             )}
@@ -123,7 +123,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                   control={<Checkbox onChange={onChange} color="primary" />}
                   label={
                     <p>
-                      I have read and agree to the terms of{' '}
+                      I have read and agree to the terms of{" "}
                       <a href="https://www.riksdagen.se/sv/dokument-lagar/dokument/svensk-forfattningssamling/lag-2018218-med-kompletterande-bestammelser_sfs-2018-218">
                         GDPR
                       </a>
@@ -133,7 +133,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
                 />
 
                 <FormHelperText>
-                  {invalid && 'Please check this box to continue'}
+                  {invalid && "Please check this box to continue"}
                 </FormHelperText>
               </FormControl>
             )}
