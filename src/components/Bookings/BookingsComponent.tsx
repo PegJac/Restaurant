@@ -113,7 +113,7 @@ const BookingsComponent: FC = () => {
       bookingsCollectionRef.add(bookingState).then((res) => {
         if (res) {
           //empty state
-          setBookingAllowed(false);
+          // setBookingAllowed(false);
           sendEmail(bookingState);
           // resetBooking();
         }

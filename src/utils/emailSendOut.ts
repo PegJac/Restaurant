@@ -16,7 +16,7 @@ export const sendEmail = (stateObject: IBookingState) => {
   // This is where the email action happens, a replica of their code on the ddocumentation with our variables
   emailjs
     .send(
-      "service_cmdfzwo",
+      "service_z6xxeoc",
       "template_32mibab",
       emailSendOutCredentials,
       "user_WFe2FaWw3TmyNA4ufQBU3"
