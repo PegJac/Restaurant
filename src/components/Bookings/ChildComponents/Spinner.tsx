@@ -1,7 +1,6 @@
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
-import Backdrop from "@material-ui/core/Backdrop";
 
 const SpinnerContainer = styled.div`
   height: 100vh;
@@ -25,7 +24,7 @@ export default function Spinner({ visible }: ISpinner) {
   if (visible) {
     return (
       <SpinnerContainer>
-        <Loader type="BallTriangle" color="#ffb4a2" height={115} width={115} />
+        <Loader type="BallTriangle" color="#ff7b51" height={115} width={115} />
       </SpinnerContainer>
     );
   } else {

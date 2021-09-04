@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { ISitting } from "./../../../models/ISitting";
 import styled from "styled-components";
 import taken from "./../../../svgs/taken.svg";
-import { SingleButton } from "./Buttons";
 interface ISittingComponentInterface {
   updateSitting: (sittingTime: string) => void;
   availableTables: ISitting;

@@ -72,13 +72,14 @@ const BookingsComponent: FC = () => {
     setNumberOfGuestsPicked(true);
   };
 
-  const resetBooking = () => {
-    updateComplexBookingObject(setBookingState, initialBookingState);
-    setNumberOfGuestsPicked(false);
-    setDatePicked(false);
-    setNumberOfGuestsPicked(false);
-    setBookingAllowed(false);
-  };
+  //TODO: add this as a button
+  // const resetBooking = () => {
+  //   updateComplexBookingObject(setBookingState, initialBookingState);
+  //   setNumberOfGuestsPicked(false);
+  //   setDatePicked(false);
+  //   setNumberOfGuestsPicked(false);
+  //   setBookingAllowed(false);
+  // };
 
   /** useEffects that will be used to scroll into the next part of the booking process */
   useEffect(() => {
@@ -136,7 +137,7 @@ const BookingsComponent: FC = () => {
     if (snapshot && !error) {
       console.log(snapshot);
       const { date } = bookingState;
-      const [numberOfBookedTables18, numberOfBookedTables21, error] =
+      const [numberOfBookedTables18, numberOfBookedTables21] =
         checkAvailability(snapshot, date!);
 
       setSittingAvailability({
