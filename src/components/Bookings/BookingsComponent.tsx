@@ -13,6 +13,7 @@ import { checkAvailability } from "./../../utils/checkAvailability";
 import { updateComplexBookingObject } from "../../utils/updateComplexBookingObject";
 import { scrollToElement } from "../../utils/scrollToElement";
 import { useSpring, animated } from "react-spring";
+import { Toaster } from "react-hot-toast";
 
 //DB
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -154,34 +155,45 @@ const BookingsComponent: FC = () => {
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Spinner visible={loading} />
       <main className="bookings-page">
-        <animated.div style={headerFadeIn}>
-          <h1>Make a booking</h1>
-        </animated.div>
-
-        <div>
-          <h5>How many guests are there in your party?</h5>
-          <Buttons setNumberOfGuests={updateNumberOfGuests} />
-        </div>
+        <section className="bookings-page__number-of-people">
+          <animated.div style={headerFadeIn}>
+            <h1>Make a booking</h1>
+          </animated.div>
+          <div>
+            <h5>How many guests are there in your party?</h5>
+            <Buttons setNumberOfGuests={updateNumberOfGuests} />
+          </div>
+        </section>
         {numberOfGuestsPicked && (
-          <div className="bookings-page__calander-container" ref={calanderRef}>
+          <section
+            className="bookings-page__calander-container"
+            ref={calanderRef}
+          >
             <h5>Sounds great! What date do you wish to visit us?</h5>
             <CalanderComponent change={updateDate} />
-          </div>
+          </section>
         )}
         {datePicked && numberOfGuestsPicked && (
-          <div ref={sittingRef} className={"bookings-page__sittings-container"}>
+          <section
+            ref={sittingRef}
+            className={"bookings-page__sittings-container"}
+          >
             <SittingsComponents
               updateSitting={updateSitting}
               availableTables={sittingAvailability}
             />
-          </div>
+          </section>
         )}
         {datePicked && numberOfGuestsPicked && sittingPicked && (
-          <div className="bookings-page__guest-information" ref={guestInfoRef}>
+          <section
+            className="bookings-page__guest-information"
+            ref={guestInfoRef}
+          >
             <GuestInfoComponent updateInformation={updateUserInformation} />
-          </div>
+          </section>
         )}
       </main>
     </>

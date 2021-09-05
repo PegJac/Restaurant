@@ -35,7 +35,6 @@ const CalanderComponent = ({ change }: CalanderProp) => {
           }
         }}
       />
-      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };
