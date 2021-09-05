@@ -18,8 +18,7 @@ export const AdminViewComponent = () => {
         <p>{booking.sitting}</p>
         <p>{booking.numberOfGuests}</p>
         <p>{booking.numberOfTables}</p>
-        <button>Change booking</button>
-        <button>Remove booking</button>
+        <button>View details</button>
       </div>
     );
   });
