@@ -1,0 +1,46 @@
+@use '../partials/variables';
+@use '../styles/partials/mixins';
+
+.contactWrapper {
+  .contactLogo {
+    margin: 1rem 2rem;
+  }
+  .infoSection {
+    padding: 0rem 2rem;
+    .info {
+      padding: 2rem 0rem;
+      .openingHours,
+      .loaction {
+        @include flex-col;
+      }
+      .openingHours {
+        margin-bottom: 1rem;
+        .openingHours-col {
+          display: flex;
+          justify-content: space-between;
+          .dots {
+            display: flex;
+            width: 50%;
+            justify-content: space-between;
+          }
+        }
+      }
+      .loaction {
+        .locationInfo {
+          address {
+            @include flex-col;
+            a {
+              text-decoration: none;
+              color: black;
+              padding: 0.5rem;
+            }
+          }
+        }
+      }
+      .inforHeadersWrapper {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
