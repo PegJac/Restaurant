@@ -1,5 +1,6 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase";
+import { Link } from "react-router-dom";
 
 export const AdminBookingsComponent = () => {
   // Getting the collection and sorting it after date
@@ -9,10 +10,7 @@ export const AdminBookingsComponent = () => {
   const [snapshot, loading, error] = useCollectionData(bookinsRef);
   console.log(snapshot);
 
-  const viewMoreDetails = () => {
-    console.log("You can se more of me: ");
-  };
-  // the rendered HTML
+  // the rendered HTML variable
   let div = snapshot?.map((booking, index) => {
     return (
       <div key={index}>
@@ -21,7 +19,11 @@ export const AdminBookingsComponent = () => {
         <p>{booking.sitting}</p>
         <p>{booking.numberOfGuests}</p>
         <p>{booking.numberOfTables}</p>
-        <button onClick={viewMoreDetails}>View details</button>
+        <button>
+          <Link to={`/admin/booking/${booking.bookingReference}`}>
+            View details
+          </Link>
+        </button>
       </div>
     );
   });
