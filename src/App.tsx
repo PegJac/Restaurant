@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
 import LandingPageComponent from "./components/LandingPageComponent";
 import MenuComponent from "./components/Menu/MenuComponent";
 import BookingsComponent from "./components/Bookings/BookingsComponent";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Contact from "./components/Contact/Contact";
 import CancellationComponent from "./components/Cancellation/CancellationComponent";

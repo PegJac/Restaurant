@@ -12,6 +12,8 @@ import { countNumberOfTables } from "./../../utils/countNumOfTables";
 import { checkAvailability } from "./../../utils/checkAvailability";
 import { updateComplexBookingObject } from "../../utils/updateComplexBookingObject";
 import { scrollToElement } from "../../utils/scrollToElement";
+import { useSpring, animated } from "react-spring";
+import { Toaster } from "react-hot-toast";
 
 //DB
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -33,6 +35,14 @@ const BookingsComponent: FC = () => {
   const bookingsCollectionRef = db.collection("bookings");
   const [snapshot, error] = useCollectionData(bookingsCollectionRef, {
     idField: "id",
+  });
+
+  const headerFadeIn = useSpring({
+    from: { scale: 2, opacity: 0, y: -30 },
+    to: { scale: 1, opacity: 1, y: 0 },
+    config: {
+      duration: 600,
+    },
   });
 
   /** Booking properties saved in state */
@@ -60,16 +70,17 @@ const BookingsComponent: FC = () => {
       numberOfTables: countNumberOfTables(numberOfGuests),
     };
     updateComplexBookingObject(setBookingState, numberOfGuestsObj);
-    setNumberOfGuestsPicked(!numberOfGuestsPicked);
+    setNumberOfGuestsPicked(true);
   };
 
-  const resetBooking = () => {
-    updateComplexBookingObject(setBookingState, initialBookingState);
-    setNumberOfGuestsPicked(false);
-    setDatePicked(false);
-    setNumberOfGuestsPicked(false);
-    setBookingAllowed(false);
-  };
+  //TODO: add this as a button
+  // const resetBooking = () => {
+  //   updateComplexBookingObject(setBookingState, initialBookingState);
+  //   setNumberOfGuestsPicked(false);
+  //   setDatePicked(false);
+  //   setNumberOfGuestsPicked(false);
+  //   setBookingAllowed(false);
+  // };
 
   /** useEffects that will be used to scroll into the next part of the booking process */
   useEffect(() => {
@@ -79,12 +90,12 @@ const BookingsComponent: FC = () => {
   //controlling the calander settings
   const updateDate = (date: string) => {
     updateComplexBookingObject(setBookingState, { date });
-    setDatePicked(!datePicked);
+    setDatePicked(true);
   };
 
   const updateSitting = (sitting: string) => {
     updateComplexBookingObject(setBookingState, { sitting });
-    setSittingPicked(!sittingPicked);
+    setSittingPicked(true);
   };
   useEffect(() => {
     scrollToElement(guestInfoRef);
@@ -127,7 +138,7 @@ const BookingsComponent: FC = () => {
     if (snapshot && !error) {
       console.log(snapshot);
       const { date } = bookingState;
-      const [numberOfBookedTables18, numberOfBookedTables21, error] =
+      const [numberOfBookedTables18, numberOfBookedTables21] =
         checkAvailability(snapshot, date!);
 
       setSittingAvailability({
@@ -144,29 +155,45 @@ const BookingsComponent: FC = () => {
 
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Spinner visible={loading} />
       <main className="bookings-page">
-        <h1>Bookings</h1>
-        <p>How many guests are there in your party?</p>
-        <Buttons setNumberOfGuests={updateNumberOfGuests} />
-        {numberOfGuestsPicked && (
-          <div className="bookings-page__calander-container" ref={calanderRef}>
-            <p>Sounds great! What date do you wish to visit us?</p>
-            <CalanderComponent change={updateDate} />
+        <section className="bookings-page__number-of-people">
+          <animated.div style={headerFadeIn}>
+            <h1>Make a booking</h1>
+          </animated.div>
+          <div>
+            <h5>How many guests are there in your party?</h5>
+            <Buttons setNumberOfGuests={updateNumberOfGuests} />
           </div>
+        </section>
+        {numberOfGuestsPicked && (
+          <section
+            className="bookings-page__calander-container"
+            ref={calanderRef}
+          >
+            <h5>Sounds great! What date do you wish to visit us?</h5>
+            <CalanderComponent change={updateDate} />
+          </section>
         )}
         {datePicked && numberOfGuestsPicked && (
-          <div ref={sittingRef} className={"bookings-page__sittings-container"}>
+          <section
+            ref={sittingRef}
+            className={"bookings-page__sittings-container"}
+          >
             <SittingsComponents
               updateSitting={updateSitting}
               availableTables={sittingAvailability}
             />
-          </div>
+          </section>
         )}
         {datePicked && numberOfGuestsPicked && sittingPicked && (
-          <div className="bookings-page__guest-information" ref={guestInfoRef}>
+          <section
+            className="bookings-page__guest-information"
+            ref={guestInfoRef}
+          >
             <GuestInfoComponent updateInformation={updateUserInformation} />
-          </div>
+          </section>
         )}
       </main>
     </>

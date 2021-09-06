@@ -4,6 +4,11 @@
     flex-direction: column;
     height: 100vh;
 
+    .heading {
+        position: relative;
+        left: 2em;    
+    }
+
     .backgroundImage {
         background-image: url(../assets/landing_page_image.png);
         background-size: cover;

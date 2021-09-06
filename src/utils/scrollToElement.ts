@@ -6,6 +6,6 @@
 
 export const scrollToElement = (element: React.MutableRefObject<null>) => {
   if (element.current) {
-    (element.current! as HTMLElement).scrollIntoView();
+    (element.current! as HTMLElement).scrollIntoView({ behavior: "smooth" });
   }
 };
