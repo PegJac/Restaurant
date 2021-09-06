@@ -1,14 +1,14 @@
-import firebase from 'firebase';
-import React, { useEffect, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { Data } from 'react-firebase-hooks/firestore/dist/firestore/types';
-import { Redirect, useParams } from 'react-router';
-import { db } from '../../firebase';
+import firebase from "firebase";
+import React, { useEffect, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
+import { Redirect, useParams } from "react-router";
+import { db } from "../../firebase";
 
 function CancellationComponent() {
-  const bookingsCollectionRef = db.collection('bookings');
+  const bookingsCollectionRef = db.collection("bookings");
   const [snapshot, loading, error] = useCollectionData(bookingsCollectionRef, {
-    idField: 'id',
+    idField: "id",
   });
 
   const [redirect, setRedirect] = useState(false);
@@ -30,7 +30,7 @@ function CancellationComponent() {
   }, [snapshot]);
 
   function deleteBooking() {
-    db.collection('bookings').doc(data?.id).delete();
+    db.collection("bookings").doc(data?.id).delete();
     setRedirect(true);
   }
 
