@@ -8,7 +8,7 @@ import Contact from "./components/Contact/Contact";
 import CancellationComponent from "./components/Cancellation/CancellationComponent";
 import ConfirmCancellationComponent from "./components/confirmCancellation/ConfirmCancellationComponent";
 import { BookingConfirmation } from "./components/Bookings/BookingConfirmation";
-import { AdminViewComponent } from "./components/Admin/AdminViewComponent";
+import { AdminBookingsComponent } from "./components/Admin/AdminBookingsComponent";
 
 function App() {
   return (
@@ -28,8 +28,8 @@ function App() {
           <Route path="/contact">
             <Contact />
           </Route>
-          <Route path="/adminView">
-            <AdminViewComponent />
+          <Route path="/admin/bookings">
+            <AdminBookingsComponent />
           </Route>
           <Route path="/cancellation/:bookingReference">
             <CancellationComponent />

@@ -1,7 +1,7 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase";
 
-export const AdminViewComponent = () => {
+export const AdminBookingsComponent = () => {
   // Getting the collection and sorting it after date
   const bookinsRef = db.collection("bookings").orderBy("date");
 
@@ -9,6 +9,9 @@ export const AdminViewComponent = () => {
   const [snapshot, loading, error] = useCollectionData(bookinsRef);
   console.log(snapshot);
 
+  const viewMoreDetails = () => {
+    console.log("You can se more of me: ");
+  };
   // the rendered HTML
   let div = snapshot?.map((booking, index) => {
     return (
@@ -18,7 +21,7 @@ export const AdminViewComponent = () => {
         <p>{booking.sitting}</p>
         <p>{booking.numberOfGuests}</p>
         <p>{booking.numberOfTables}</p>
-        <button>View details</button>
+        <button onClick={viewMoreDetails}>View details</button>
       </div>
     );
   });
