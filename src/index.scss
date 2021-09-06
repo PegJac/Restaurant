@@ -1,6 +1,8 @@
 @import "./styles/partials/mixins";
+@import "./styles/partials/variables";
 
 @import "styles/bookings-page";
+@import "styles/landing-page";
 
 body {
   margin: 0;
@@ -9,6 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $backgroundColor;
 }
 
 html {

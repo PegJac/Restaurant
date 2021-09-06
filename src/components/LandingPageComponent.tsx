@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 
 export default function LandingPageComponent() {
     return (
-        <>
+        <div className="landingPageContainer">
             <h1>late night brunch</h1>
-            <Link to="/bookings">Bookings</Link>
-            <br />
-            <Link to="/contact">Contact</Link>
-        </>
+            <div className="backgroundImage">
+                <Link className="btn bookingBtn" to="/bookings">BOOKING</Link>
+                <Link className="btn contactBtn" to="/contact">CONTACT</Link>
+
+                <Link className="btn menuBtn" to="">MENU</Link>
+            </div>
+        </div>
     )
 }
