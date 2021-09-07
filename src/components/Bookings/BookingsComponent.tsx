@@ -27,7 +27,7 @@ import {
   IBookingState,
   initialBookingState,
 } from "./../../models/IBookingState";
-import { sendEmail } from "../../utils/emailSendOut";
+import { sendEmailConfirmation } from "../../utils/emailSendOut";
 import Spinner from "./ChildComponents/Spinner";
 import { useHistory } from "react-router";
 
@@ -127,7 +127,7 @@ const BookingsComponent: FC = () => {
         if (res) {
           //empty state
           // setBookingAllowed(false);
-          sendEmail(bookingState);
+          sendEmailConfirmation(bookingState);
           history.push("/confirmation");
           // resetBooking();
         } else {
