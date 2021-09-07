@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const BookingConfirmation = () => {
@@ -18,7 +19,7 @@ export const BookingConfirmation = () => {
       <h1>Thanks for your booking</h1>
       <p>Be sure to check your email for a booking confirmation</p>
       <p>
-        Click here to get back to <a href="/">Home</a>
+        Click here to get back to <Link to="/">Home</Link>
       </p>
     </StyledDiv>
   );

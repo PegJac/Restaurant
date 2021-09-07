@@ -3,7 +3,7 @@ import { ISendEmail } from "../models/ISendEmail";
 import { IBookingState } from "../models/IBookingState";
 import { useHistory } from "react-router-dom";
 
-export const sendEmail = (stateObject: IBookingState) => {
+export const sendEmailConfirmation = (stateObject: IBookingState) => {
   // takes the variabels from emailJs and giives them the value of the form of the user.
   const emailSendOutCredentials: ISendEmail = {
     first_name: stateObject.firstName!,
@@ -24,11 +24,38 @@ export const sendEmail = (stateObject: IBookingState) => {
     .then(
       (result) => {
         console.log("SUCCESS!", result.status, result.text);
-        alert("Thanks for your order, check your mail for more details");
       },
       (error) => {
         console.log("FAILED...", error);
-        alert("Your booking did not go trough, please try again later");
+        alert("Something went wrong with the email sendout");
+      }
+    );
+};
+export const sendEmailCancellation = (dataObject: IBookingState) => {
+  // takes the variabels from emailJs and giives them the value of the form of the user.
+  const emailSendOutCredentials: ISendEmail = {
+    first_name: dataObject.firstName!,
+    last_name: dataObject.lastName!,
+    booked_date: dataObject.date!,
+    booked_time: dataObject.sitting!,
+    user_email: dataObject.email!,
+    booking_reference: dataObject.bookingReference!,
+  };
+  // This is where the email action happens, a replica of their code on the ddocumentation with our variables
+  emailjs
+    .send(
+      "service_z6xxeoc",
+      "template_h8rs4n5",
+      emailSendOutCredentials,
+      "user_WFe2FaWw3TmyNA4ufQBU3"
+    )
+    .then(
+      (result) => {
+        console.log("SUCCESS!", result.status, result.text);
+      },
+      (error) => {
+        console.log("FAILED...", error);
+        alert("Something went wrong with the email sendout");
       }
     );
 };

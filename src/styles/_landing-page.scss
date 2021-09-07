@@ -1,47 +1,48 @@
 .landingPageContainer {
-    border: 1px solid blue;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .heading {
+    position: relative;
+    left: 2em;
+  }
+
+  .backgroundImage {
+    background-image: url(../assets/landing_page_image.png);
+    background-size: cover;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100vh;
 
-    .heading {
-        position: relative;
-        left: 2em;    
+    .btn {
+      background-color: $buttonColor;
+      color: $textColor;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 50px;
+      padding: 0.5em 0.8em;
+      margin: 0.5em;
+      width: min-content;
+      font-size: 20px;
     }
 
-    .backgroundImage {
-        background-image: url(../assets/landing_page_image.png);
-        background-size: cover;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-
-        .btn {
-            background-color: $buttonColor;
-            color: $textColor;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 50px;
-            padding: .5em .80em;
-            margin: .5em;
-            width: min-content;
-            font-size: 20px;
-        }
-
-        .bookingBtn, .contactBtn {
-            align-self: flex-end;
-            position: relative;
-            top: 1em;
-        }
-
-        .contactBtn {
-            right: 1.5em;
-        }
-
-        .menuBtn {
-            align-self: center;
-            position: absolute;
-            bottom: 1em;
-        }
+    .bookingBtn,
+    .contactBtn {
+      align-self: flex-end;
+      position: relative;
+      top: 1em;
     }
+
+    .contactBtn {
+      right: 1.5em;
+    }
+
+    .menuBtn {
+      align-self: center;
+      position: absolute;
+      bottom: 1em;
+    }
+  }
 }

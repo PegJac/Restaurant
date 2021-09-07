@@ -4,7 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { IBookingState } from "../../models/IBookingState";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
-import { Edit, DeleteOutline } from "@material-ui/icons";
+import { Edit } from "@material-ui/icons";
 import { randomIndexGen } from "../../utils/randomIndexGen";
 
 interface IBookingCard {
