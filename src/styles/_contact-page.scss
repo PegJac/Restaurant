@@ -25,11 +25,18 @@
         .openingHours-col {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           .dots {
-            display: flex;
-            width: 50%;
-            justify-content: space-between;
+            width: 65%;
+            height: 0;
+            border: none;
+            border-bottom: dotted;
           }
+          // .dots {
+          //   display: flex;
+          //   width: 50%;
+          //   justify-content: space-between;
+          // }
         }
       }
       .loaction {

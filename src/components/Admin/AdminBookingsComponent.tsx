@@ -1,17 +1,17 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
+import { IBookingState } from "../../models/IBookingState";
 
 export const AdminBookingsComponent = () => {
   // Getting the collection and sorting it after date
   const bookinsRef = db.collection("bookings").orderBy("date");
 
   //Fetching data by using a firebase hook.
-  const [snapshot, loading, error] = useCollectionData(bookinsRef);
+  const [snapshot, loading, error] =
+    useCollectionData<IBookingState>(bookinsRef);
 
-  if (loading) {
-    console.log(snapshot);
-  }
+  console.log(typeof snapshot);
 
   // the rendered HTML variable
   let div = snapshot?.map((booking, index) => {
