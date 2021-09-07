@@ -2,12 +2,15 @@
 
 $page-margin: 2.3rem;
 $bg-main: #fff0e5;
-$accent: #ffaf75;
-$text-main: #ff7b51;
 
 .selected {
   filter: brightness(0.8);
   transform: scale(1.15);
+}
+
+.center {
+  @include center-col;
+  width: 100%;
 }
 
 .App {
@@ -24,7 +27,7 @@ $text-main: #ff7b51;
 
     h1 {
       font-size: 3rem;
-      color: $text-main;
+      color: $headingColor;
       text-decoration: underline;
       text-transform: uppercase;
     }
@@ -63,6 +66,7 @@ $text-main: #ff7b51;
         padding: $page-margin 0;
         transition: all ease 0.3s;
         place-items: center;
+        max-width: 75%;
 
         @include media(550px) {
           grid-template-columns: repeat(3, auto);
@@ -85,7 +89,7 @@ $text-main: #ff7b51;
       }
 
       .fc-toolbar-title {
-        color: $text-main;
+        color: $headingColor;
       }
       .fc-daygrid-day {
         transition: background-color ease 200ms;
@@ -203,7 +207,7 @@ $text-main: #ff7b51;
           gap: 1rem;
           padding: 2rem;
           margin-top: 3rem;
-          background-color: $accent;
+          background-color: $buttonColor;
           border-radius: 3px;
 
           @include media(600px) {

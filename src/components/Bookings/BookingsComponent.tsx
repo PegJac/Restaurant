@@ -162,7 +162,7 @@ const BookingsComponent: FC = () => {
           <animated.div style={headerFadeIn}>
             <h1>Make a booking</h1>
           </animated.div>
-          <div>
+          <div className="center">
             <h5>How many guests are there in your party?</h5>
             <Buttons setNumberOfGuests={updateNumberOfGuests} />
           </div>

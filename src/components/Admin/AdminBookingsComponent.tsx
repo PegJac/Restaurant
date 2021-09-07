@@ -8,7 +8,10 @@ export const AdminBookingsComponent = () => {
 
   //Fetching data by using a firebase hook.
   const [snapshot, loading, error] = useCollectionData(bookinsRef);
-  console.log(snapshot);
+
+  if (loading) {
+    console.log(snapshot);
+  }
 
   // the rendered HTML variable
   let div = snapshot?.map((booking, index) => {
