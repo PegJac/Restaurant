@@ -1,0 +1,17 @@
+@import "./partials/mixins";
+
+.App {
+  .admin-bookings-page {
+    @include center-col;
+    margin: 1rem 0 3rem 0;
+
+    .booking-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(20%, 17rem));
+      place-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+    }
+  }
+}
