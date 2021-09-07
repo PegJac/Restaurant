@@ -24,11 +24,10 @@ export const sendEmail = (stateObject: IBookingState) => {
     .then(
       (result) => {
         console.log("SUCCESS!", result.status, result.text);
-        alert("Thanks for your order, check your mail for more details");
       },
       (error) => {
         console.log("FAILED...", error);
-        alert("Your booking did not go trough, please try again later");
+        alert("Something went wrong with the email sendout");
       }
     );
 };

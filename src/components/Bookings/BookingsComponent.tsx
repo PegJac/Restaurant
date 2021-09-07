@@ -29,6 +29,7 @@ import {
 } from "./../../models/IBookingState";
 import { sendEmail } from "../../utils/emailSendOut";
 import Spinner from "./ChildComponents/Spinner";
+import { useHistory } from "react-router";
 
 //Parent component
 const BookingsComponent: FC = () => {
@@ -115,6 +116,7 @@ const BookingsComponent: FC = () => {
     setBookingAllowed(!bookingAllowed);
     setLoading(true);
   };
+  let history = useHistory();
 
   //triggered when the user info form is submitted
   useEffect(() => {
@@ -126,7 +128,11 @@ const BookingsComponent: FC = () => {
           //empty state
           // setBookingAllowed(false);
           sendEmail(bookingState);
+          history.push("/confirmation");
           // resetBooking();
+        } else {
+          alert("Your booking did not go trough, please try again later");
+          history.push("/bookings");
         }
       });
     }
