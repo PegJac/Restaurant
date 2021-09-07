@@ -5,6 +5,7 @@ import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
 import { Redirect, useParams } from "react-router";
 import { db } from "../../firebase";
 import { IBookingState } from "../../models/IBookingState";
+import { sendEmailCancellation } from "../../utils/emailSendOut";
 
 function CancellationComponent() {
   const bookingsCollectionRef = db.collection("bookings");
@@ -34,9 +35,10 @@ function CancellationComponent() {
       }
     });
   }, [snapshot]);
-  console.log(data);
+
   function deleteBooking() {
     db.collection("bookings").doc(data?.id).delete();
+    sendEmailCancellation(data as IBookingState);
     setRedirect(true);
   }
 
