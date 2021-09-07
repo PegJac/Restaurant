@@ -26,7 +26,7 @@ function Contact() {
       </Link>
 
       <div className="infoSection infoSectionRow">
-        <div className="map">
+        <div className="mapWrapper">
           <GoogleMap></GoogleMap>
         </div>
         <div className="info">
