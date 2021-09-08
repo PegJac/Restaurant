@@ -16,6 +16,9 @@
     }
     .info {
       padding: 2rem 0rem;
+      @include mediaQuery(768px) {
+        font-size: 1.3rem;
+      }
       .openingHours,
       .loaction {
         @include flex-col;
@@ -27,16 +30,20 @@
           justify-content: space-between;
           align-items: center;
           .dots {
-            width: 65%;
+            width: 55%;
             height: 0;
             border: none;
             border-bottom: dotted;
+            @include mediaQuery(375px) {
+              width: 60%;
+            }
+            @include mediaQuery(768px) {
+              width: 75%;
+            }
+            @include mediaQuery(1024px) {
+              width: 82%;
+            }
           }
-          // .dots {
-          //   display: flex;
-          //   width: 50%;
-          //   justify-content: space-between;
-          // }
         }
       }
       .loaction {
@@ -46,7 +53,10 @@
             a {
               text-decoration: none;
               color: black;
-              padding: 0.5rem;
+              padding-bottom: 0.5rem;
+            }
+            .address {
+              margin-bottom: 1rem;
             }
           }
         }

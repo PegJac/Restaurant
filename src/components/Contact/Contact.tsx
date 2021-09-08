@@ -53,82 +53,11 @@ function Contact() {
             <div className="openingHours-col">
               <p>Mon-Fri</p>
               <hr className="dots" />
-              {/* <div className="dots">
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p> */}
-              {/* </div> */}
-              {/* <p>.....................</p> */}
-              {/* <p>...................................................</p> */}
               <p>12-00</p>
             </div>
             <div className="openingHours-col">
               <p>Sat-Sun</p>
               <hr className="dots" />
-              {/* <div className="dots">
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-                <p>.</p>
-              </div> */}
-              {/* <p>...................................................</p> */}
               <p>09-00</p>
             </div>
           </div>
@@ -154,7 +83,7 @@ function Contact() {
               </div>
 
               <address>
-                <a className="adress" href="">
+                <a className="address" href="">
                   Åsögatan 175
                 </a>
                 <a className="email" href="mailto:latenightbrunch@contact.com">
