@@ -3,7 +3,7 @@ import { ISitting } from "./../../../models/ISitting";
 import styled from "styled-components";
 import taken from "./../../../svgs/taken.svg";
 interface ISittingComponentInterface {
-  updateSitting: (sittingTime: string) => void;
+  updateSitting?: (sittingTime: string) => void;
   availableTables: ISitting;
 }
 
@@ -41,7 +41,7 @@ const SittingsComponents = (props: ISittingComponentInterface) => {
     target.classList.contains("selected")
       ? target.classList.remove("selected")
       : target.classList.add("selected");
-    props.updateSitting(target.id);
+    props.updateSitting!(target.id);
   };
 
   return (
