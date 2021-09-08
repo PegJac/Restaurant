@@ -13,6 +13,7 @@ import { randomIndexGen } from "../../../utils/randomIndexGen";
 
 //helper functions
 import { pickArrivalDay } from "./BookingsComponentHelpers";
+import SittingsComponents from "../ChildComponents/SittingsComponents";
 
 const todaysDate = new Date().getDate();
 
@@ -36,4 +37,28 @@ test("Calander component shows upon choosing the number of people", () => {
     ".bookings-page__calander-container"
   );
   expect(calanderContainer).toBeInTheDocument();
+});
+
+test("Sittings component renders with two sittings when theres avaiability", () => {
+  const mockAvailability = { sitting18: true, sitting21: true };
+  render(<SittingsComponents availableTables={mockAvailability} />);
+  const sittingsButtons = screen.getAllByRole("button");
+  expect(sittingsButtons.length).toEqual(2);
+});
+
+test("User can only reserve the available sitting", () => {
+  const mockAvailability = { sitting18: true, sitting21: false };
+  render(<SittingsComponents availableTables={mockAvailability} />);
+
+  //assert that the user should not be able to book the 21:00 sitting
+  const sittingsButtons = screen.getAllByRole("button");
+  expect(sittingsButtons).toHaveLength(1);
+  expect(sittingsButtons[0].id).toEqual("18:00");
+});
+
+test("User cannot choose sittings when there is no availability", () => {
+  const mockAvailability = { sitting18: false, sitting21: false };
+  render(<SittingsComponents availableTables={mockAvailability} />);
+  const sittingsButtons = screen.queryAllByRole("button");
+  expect(sittingsButtons).toEqual([]);
 });
