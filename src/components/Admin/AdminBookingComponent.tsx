@@ -36,10 +36,6 @@ export const AdminBookingComponent = () => {
     setRedirect(true);
   }
 
-  function editBooking() {
-    <Link to="/edit" />
-  }
-
   if (redirect) {
     return <Redirect to="/admin/bookings" />;
   }
@@ -66,9 +62,9 @@ export const AdminBookingComponent = () => {
           <button onClick={deleteBooking} type="button">
             Delete reservation
           </button>
-          <button onClick={editBooking} type="button">
+          <Link to={`/admin/edit/${data.bookingReference}`}>
             Edit reservation
-          </button>
+          </Link>
         </>
       ) : (
         <p>Looking for booking...</p>
