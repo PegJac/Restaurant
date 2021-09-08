@@ -24,9 +24,8 @@ function CancellationComponent() {
 
   let { bookingReference } = useParams<IParams>();
 
-  const [data, setData] = useState<
-    firebase.firestore.DocumentData | IBookingState
-  >();
+  //Booking to be cancelled
+  const [data, setData] = useState<firebase.firestore.DocumentData | IBookingState>();
 
   useEffect(() => {
     snapshot?.map((booking) => {
@@ -36,6 +35,7 @@ function CancellationComponent() {
     });
   }, [snapshot]);
 
+  //delete document, send email, redirect to confirmation
   function deleteBooking() {
     db.collection("bookings").doc(data?.id).delete();
     sendEmailCancellation(data as IBookingState);
