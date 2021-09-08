@@ -39,3 +39,8 @@
     @content;
   }
 }
+@mixin mediaQuery($bp) {
+  @media screen and (min-width: $bp) {
+    @content;
+  }
+}
