@@ -1,12 +1,9 @@
 import { DocumentData, GetOptions, QuerySnapshot } from '@firebase/firestore-types';
 import { TextField, FormControl, FormControlLabel, Checkbox, FormHelperText, Button } from '@material-ui/core';
-import { Controller } from '@react-spring/core';
 import React, { useEffect, useState } from 'react'
 import { DocumentDataHook, useCollectionData } from 'react-firebase-hooks/firestore';
-import { set } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { Redirect, useParams } from 'react-router';
 import { db } from '../../firebase';
-import { IBookingState } from '../../models/IBookingState';
 
 export default function AdminEdit() {
 
@@ -22,6 +19,7 @@ export default function AdminEdit() {
     });
 
     const [booking, setBooking] = useState<DocumentData>()
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         snapshot?.map((booking, i) => {
@@ -67,25 +65,26 @@ export default function AdminEdit() {
             email: booking?.email,
             number: booking?.number,
         })
+        setRedirect(true);
+    }
+
+    if (redirect) {
+        return <Redirect to={`/admin/booking/${id}`} />;
     }
 
     return (
         <div>
-            EDIT
-            <p>{id}</p>
-
+            <h1>Edit</h1>
             {booking ?
                 <form>
                     <TextField value={booking.firstName} variant="outlined" name="firstName" onChange={handleChangeFirstName} />
-                    <br />
                     <TextField value={booking.lastName} variant="outlined" name="lastName" onChange={handleChangeLastName} />
-                    <br />
                     <TextField value={booking.email} variant="outlined" name="email" onChange={handleChangeEmail} />
-                    <br />
                     <TextField value={booking.number} variant="outlined" name="number" onChange={handleChangeNumber} />
                     <button onClick={handleSubmit} type="button">Update</button>
                 </form>
-                : <p>ERROR</p>}
+                : <p>Loading...</p>
+            }
         </div>
     )
 }
