@@ -25,11 +25,11 @@ function Contact() {
         </svg>
       </Link>
 
-      <div className="infoSection infoSectionRow">
+      <div className="infoSection">
         <div className="mapWrapper">
           <GoogleMap></GoogleMap>
         </div>
-        <div className="info">
+        <div className="infoWrapper">
           <div className="openingHours">
             <div className="inforHeadersWrapper">
               <svg
