@@ -2,6 +2,7 @@ import { DocumentData } from "@firebase/firestore-types";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Redirect, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { db } from "../../firebase";
 import { IBookingState } from "../../models/IBookingState";
 import { sendEmailCancellation } from "../../utils/emailSendOut";
@@ -59,8 +60,11 @@ export const AdminBookingComponent = () => {
             <p>{data.numberOfGuests} guests</p>
           </div>
           <button onClick={deleteBooking} type="button">
-            Delete booking
+            Delete reservation
           </button>
+          <Link to={`/admin/edit/${data.bookingReference}`}>
+            Edit reservation
+          </Link>
         </>
       ) : (
         <p>Looking for booking...</p>

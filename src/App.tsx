@@ -6,11 +6,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Contact from "./components/Contact/Contact";
 import CancellationComponent from "./components/Cancellation/CancellationComponent";
-import ConfirmCancellationComponent from "./components/confirmCancellation/ConfirmCancellationComponent";
+import ConfirmCancellationComponent from "./components/ConfirmCancellation/ConfirmCancellationComponent";
 import { BookingConfirmation } from "./components/Bookings/BookingConfirmation";
 import { AdminBookingsComponent } from "./components/Admin/AdminBookingsComponent";
 import { AdminBookingComponent } from "./components/Admin/AdminBookingComponent";
 import BookingCard from "./components/Admin/BookingCard";
+import AdminEditComponent from "./components/Admin/AdminEditComponent";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/admin/booking/:id">
             <AdminBookingComponent />
+          </Route>
+          <Route path="/admin/edit/:id">
+            <AdminEditComponent />
           </Route>
           <Route path="/cancellation/:bookingReference">
             <CancellationComponent />
