@@ -2,6 +2,7 @@ import { DocumentData } from "@firebase/firestore-types";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Redirect, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { db } from "../../firebase";
 
 export const AdminBookingComponent = () => {
@@ -33,6 +34,10 @@ export const AdminBookingComponent = () => {
     setRedirect(true);
   }
 
+  function editBooking() {
+    <Link to="/edit" />
+  }
+
   if (redirect) {
     return <Redirect to="/admin/bookings" />;
   }
@@ -57,7 +62,10 @@ export const AdminBookingComponent = () => {
             <p>{data.numberOfGuests} guests</p>
           </div>
           <button onClick={deleteBooking} type="button">
-            Delete booking
+            Delete reservation
+          </button>
+          <button onClick={editBooking} type="button">
+            Edit reservation
           </button>
         </>
       ) : (
