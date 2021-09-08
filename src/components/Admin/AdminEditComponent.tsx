@@ -77,10 +77,18 @@ export default function AdminEdit() {
             <h1>Edit</h1>
             {booking ?
                 <form>
-                    <TextField value={booking.firstName} variant="outlined" name="firstName" onChange={handleChangeFirstName} />
-                    <TextField value={booking.lastName} variant="outlined" name="lastName" onChange={handleChangeLastName} />
-                    <TextField value={booking.email} variant="outlined" name="email" onChange={handleChangeEmail} />
-                    <TextField value={booking.number} variant="outlined" name="number" onChange={handleChangeNumber} />
+                    <TextField value={booking.date} variant="outlined" label="date" />
+                    <TextField value={booking.sitting} variant="outlined" label="sitting" />
+                    <br />
+                    <br />
+                    <TextField value={booking.numberOfGuests} variant="outlined" label="numberOfGuests" />
+                    <TextField value={booking.numberOfTables} variant="outlined" label="numberOfTables" />
+                    <br />
+                    <br />
+                    <TextField value={booking.firstName} variant="outlined" label="firstName" name="firstName" onChange={handleChangeFirstName} />
+                    <TextField value={booking.lastName} variant="outlined" label="lastName" name="lastName" onChange={handleChangeLastName} />
+                    <TextField value={booking.email} variant="outlined" label="email" name="email" onChange={handleChangeEmail} />
+                    <TextField value={booking.number} variant="outlined" label="number" name="number" onChange={handleChangeNumber} />
                     <button onClick={handleSubmit} type="button">Update</button>
                 </form>
                 : <p>Loading...</p>
