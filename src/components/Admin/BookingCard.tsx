@@ -76,7 +76,7 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
               >
                 <div className="edit-inner">
                   <Edit style={{ color: "#FF7B51" }} />
-                  <p>Edit</p>
+                  <p>See more</p>
                 </div>
               </Link>
             </div>
