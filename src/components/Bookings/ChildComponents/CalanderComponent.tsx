@@ -27,7 +27,7 @@ const CalanderComponent = ({ change }: CalanderProp) => {
         dateClick={(e) => {
           const todaysDate = new Date(getTodaysDate()).getTime();
           const datePickedByGuest = new Date(e.dateStr).getTime();
-
+          console.log(e.jsEvent.target as HTMLElement);
           if (todaysDate > datePickedByGuest) {
             return toast.error("Day you picked has already passed");
           } else {

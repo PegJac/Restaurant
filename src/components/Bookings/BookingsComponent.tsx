@@ -155,9 +155,9 @@ const BookingsComponent: FC = () => {
     }
   }, [datePicked]);
 
-  useEffect(() => {
-    console.log("State updated: ", bookingState);
-  }, [bookingState]);
+  // useEffect(() => {
+  //   console.log("State updated: ", bookingState);
+  // }, [bookingState]);
 
   return (
     <>
@@ -175,6 +175,7 @@ const BookingsComponent: FC = () => {
         </section>
         {numberOfGuestsPicked && (
           <section
+            data-testid="calander-component"
             className="bookings-page__calander-container"
             ref={calanderRef}
           >
@@ -184,6 +185,7 @@ const BookingsComponent: FC = () => {
         )}
         {datePicked && numberOfGuestsPicked && (
           <section
+            data-testid="sittings-component"
             ref={sittingRef}
             className={"bookings-page__sittings-container"}
           >
