@@ -4,33 +4,35 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { db } from "../../firebase";
+import { IBookingState } from "../../models/IBookingState";
+import { sendEmailCancellation } from "../../utils/emailSendOut";
 
 export const AdminBookingComponent = () => {
-
   interface IParams {
     id: string;
   }
 
-  const { id } = useParams<IParams>()
+  const { id } = useParams<IParams>();
 
   const bookingsCollectionRef = db.collection("bookings");
   const [snapshot, loading, error] = useCollectionData(bookingsCollectionRef, {
     idField: "id",
   });
 
-  const [data, setData] = useState<DocumentData>()
+  const [data, setData] = useState<DocumentData | IBookingState>();
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     snapshot?.map((booking, i) => {
       if (booking.bookingReference === id) {
-        return setData(booking)
+        return setData(booking);
       }
-    })
-  }, [snapshot])
+    });
+  }, [snapshot]);
 
   function deleteBooking() {
     db.collection("bookings").doc(data?.id).delete();
+    sendEmailCancellation(data as IBookingState);
     setRedirect(true);
   }
 

@@ -12,6 +12,7 @@ export const SingleButton = styled.button`
   font-size: 1.8rem;
   transition: all 0.3s ease;
   background-color: #ffaf75;
+  cursor: pointer;
 
   &:hover {
     filter: brightness(1.11);

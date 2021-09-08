@@ -13,7 +13,6 @@ const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 100;
-  pointer-events: none;
 `;
 
 interface ISpinner {
