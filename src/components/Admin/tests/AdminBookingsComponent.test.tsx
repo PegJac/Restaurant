@@ -12,7 +12,11 @@ import { IBookingState } from "../../../models/IBookingState";
 const { mockCollection } = require("firestore-jest-mock/mocks/firestore");
 
 test("Bookings component renders data on the screen", () => {
-  const { container } = render(<AdminBookingsComponent />);
+  const { container } = render(
+    <BrowserRouter>
+      <AdminBookingsComponent />{" "}
+    </BrowserRouter>
+  );
   const bookingsPage = container.querySelector(".admin-bookings-page");
   expect(bookingsPage).toBeInTheDocument();
 });
