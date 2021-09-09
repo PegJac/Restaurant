@@ -10,7 +10,6 @@ import ConfirmCancellationComponent from "./components/ConfirmCancellation/Confi
 import { BookingConfirmation } from "./components/Bookings/BookingConfirmation";
 import { AdminBookingsComponent } from "./components/Admin/AdminBookingsComponent";
 import { AdminBookingComponent } from "./components/Admin/AdminBookingComponent";
-import BookingCard from "./components/Admin/BookingCard";
 import AdminEditComponent from "./components/Admin/AdminEditComponent";
 
 function App() {

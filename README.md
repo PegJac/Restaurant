@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Late night brunch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a school assignment where we were assignt to create a resturant page with the ablility to create a reservation onto an database using react with typescript. And then be able to edit it trough an admin page. Trough every request the user gets an email confirmation of either a cancellation or confirmation of a reservation.
 
-## Available Scripts
+## How to get started
 
-In the project directory, you can run:
+1.  run `git clone https://github.com/PegJac/Restaurant.git`
+2.  run `npm intall` to insta node modules and all the npm packages we chosen to use in this project.
+3.  run `npm start`
 
-### `npm start`
+## File Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+For this project we decided on this file struckture.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Prettier
 
-### `npm test`
+- Is used to have the same compilation settings for the whole group, to minimize github hub conflicts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Assets
 
-### `npm run build`
+- Is where we have all our images
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Houses all the parent components and child components in a seperate folder.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### model
 
-### `npm run eject`
+- This is where we mould our models that can be used trough out the application.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Styles
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Is where we have all our styling for the application, and uses the partials folder for reusable variables.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Svgs
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- This folder contains the the few svgs images we have.
 
-## Learn More
+#### Utils
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Houses most of our function to keep a tidy code
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Firebase (db)
+
+- This is where we inistiate our chosen database that we use throughout the whole application
+
+```bash
+project
+│   README.md
+│   .prettierrc.json
+│
+└───src
+│   └───assets
+│   └───components
+│   │   └───ChildComponents
+│   └───models
+│   └───styles
+│   │    └───Partials
+│   └───svgs
+│   └───utils
+│   │
+│   │   Firebase
+
+```
+
+## Firebase/Firestore
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
