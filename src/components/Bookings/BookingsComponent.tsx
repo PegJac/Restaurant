@@ -117,11 +117,8 @@ const BookingsComponent: FC = () => {
     if (isBookingPossible) {
       bookingsCollectionRef.add(bookingState).then((res) => {
         if (res) {
-          //empty state
-          // setBookingAllowed(false);
           sendEmailConfirmation(bookingState);
           history.push("/confirmation");
-          // resetBooking();
         } else {
           alert("Your booking did not go trough, please try again later");
           history.push("/bookings");
