@@ -25,7 +25,9 @@ function CancellationComponent() {
   let { bookingReference } = useParams<IParams>();
 
   //Booking to be cancelled
-  const [data, setData] = useState<firebase.firestore.DocumentData | IBookingState>();
+  const [data, setData] = useState<
+    firebase.firestore.DocumentData | IBookingState
+  >();
 
   useEffect(() => {
     snapshot?.map((booking) => {
@@ -48,7 +50,6 @@ function CancellationComponent() {
 
   return (
     <div>
-      <h1>Cancellation cmponent</h1>
       {data ? (
         <>
           <div>
