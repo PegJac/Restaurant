@@ -9,6 +9,7 @@ export const pickNumberOfPeople = () => {
   const buttons = container.querySelectorAll("button");
   const randomButton = buttons[randomIndexGen(buttons.length)];
   randomButton.click();
+  
   const calanderComponent = screen.getByTestId("calander-component");
 
   expect(calanderComponent).toBeInTheDocument();

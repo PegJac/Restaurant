@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DocumentData } from "@firebase/firestore-types";
 import {
   TextField,
@@ -5,12 +6,11 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Grid,
+  Button,
 } from "@material-ui/core";
 import { ChangeEvent, ReactNode, useEffect, useState } from "react";
-import {
-  DocumentDataHook,
-  useCollectionData,
-} from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Redirect, useParams } from "react-router";
 import { db } from "../../firebase";
 import Radio from "@material-ui/core/Radio";
@@ -20,6 +20,7 @@ import { isDatePassed } from "../../utils/isDatePassed";
 import { checkAvailability } from "../../utils/checkAvailability";
 import toast, { Toaster } from "react-hot-toast";
 import { countNumberOfTables } from "../../utils/countNumOfTables";
+import Spinner from "../Bookings/ChildComponents/Spinner";
 
 export default function AdminEdit() {
   interface IParams {
@@ -29,11 +30,10 @@ export default function AdminEdit() {
   const { id } = useParams<IParams>();
 
   const bookingsCollectionRef = db.collection("bookings");
-  const [snapshot, loading, error] = useCollectionData(bookingsCollectionRef, {
+  const [snapshot, loading] = useCollectionData(bookingsCollectionRef, {
     idField: "id",
   });
   const [isUpdateAllowed, setIsUpdateAllowed] = useState(false);
-
   //booking is the booking we want to edit
   const [booking, setBooking] = useState<DocumentData>();
   const [redirect, setRedirect] = useState(false);
@@ -51,48 +51,25 @@ export default function AdminEdit() {
     console.log("State updated: ", booking);
   }, [booking]);
 
-  function handleChangeFirstName(e: ChangeEvent) {
-    setBooking((prevState) => ({
-      ...prevState,
-      firstName: (e.target as HTMLInputElement).value,
-    }));
+  //Handles the changes for all contact information input fields and the sittings radio buttons
+  function handleChangeInputFields(e: ChangeEvent) {
+    const { name, value } = e.target as HTMLInputElement;
+    console.log(name, value);
+    const formFieldObject = { [name]: value };
+    updateComplexBookingObject(setBooking, formFieldObject);
   }
 
-  function handleChangeLastName(e: ChangeEvent) {
-    setBooking((prevState) => ({
-      ...prevState,
-      lastName: (e.target as HTMLInputElement).value,
-    }));
-  }
-
-  function handleChangeEmail(e: ChangeEvent) {
-    setBooking((prevState) => ({
-      ...prevState,
-      email: (e.target as HTMLInputElement).value,
-    }));
-  }
-
-  function handleChangeNumber(e: ChangeEvent) {
-    setBooking((prevState) => ({
-      ...prevState,
-      number: (e.target as HTMLInputElement).value,
-    }));
-  }
-
+  //Handles changing the date, makes sure the date the Admin picks has not passed
   function handleChangeDate(e: ChangeEvent) {
     const dateChosen = (e.target as HTMLInputElement).value;
     const datePassed: boolean = isDatePassed(dateChosen);
     if (datePassed) {
-      return toast.error("Date you picked has already passed");
+      return toast.error("Date you've picked has already passed");
     }
     updateComplexBookingObject(setBooking, { date: dateChosen });
   }
 
-  function handleChangeSitting(e: ChangeEvent) {
-    const sittingPicked = (e.target as HTMLInputElement).value;
-    updateComplexBookingObject(setBooking, { sitting: sittingPicked });
-  }
-
+  //Handles changing the number of guests
   function handleChangeNumberOfGuests(
     e: ChangeEvent<{
       name?: string;
@@ -105,7 +82,11 @@ export default function AdminEdit() {
     updateComplexBookingObject(setBooking, { numberOfGuests, numberOfTables });
   }
 
-  function handleSubmit() {
+  //Handles form submition - Checks availability with the database and prevents
+  //use from submitting the form if no tables are available
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
     if (booking) {
       const [sitting18, sitting21] = checkAvailability(snapshot!, booking.date);
       const errorMessage =
@@ -143,6 +124,7 @@ export default function AdminEdit() {
     return <Redirect to={`/admin/booking/${id}`} />;
   }
 
+  //adds 12 <MenuItem /> to the seclect tag
   const selectOptions = (): ReactNode[] => {
     let options = [];
     for (let i = 0; i < 12; i++) {
@@ -156,83 +138,98 @@ export default function AdminEdit() {
   };
 
   return (
-    <div>
+    <main className="edit-page">
       <Toaster />
-      <h1>Edit</h1>
-      {booking ? (
-        <form>
-          <TextField
-            value={booking.date}
-            type="date"
-            variant="outlined"
-            label="date"
-            onChange={(e) => handleChangeDate(e)}
-          />
-          <RadioGroup
-            aria-label="numberOfGuests"
-            name="numberOfGuests"
-            value={booking.sitting}
-            onChange={(e) => handleChangeSitting(e)}
+      {booking && <h1>Edit booking #{booking.bookingReference}</h1>}
+      {loading && <Spinner />}
+      {booking && (
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="stretch"
+            className="edit-page__inner-form"
           >
-            <FormControlLabel
-              value="18:00"
-              control={<Radio />}
-              label="18:00"
-              id="18:00"
+            <TextField
+              value={booking.firstName}
+              variant="outlined"
+              label="First Name"
+              name="firstName"
+              onChange={(e) => handleChangeInputFields(e)}
             />
-            <FormControlLabel value="21:00" control={<Radio />} label="21:00" />
-          </RadioGroup>
+            <TextField
+              value={booking.lastName}
+              variant="outlined"
+              label="Last Name"
+              name="lastName"
+              onChange={(e) => handleChangeInputFields(e)}
+            />
+            <TextField
+              value={booking.email}
+              variant="outlined"
+              label="Email Adress"
+              name="email"
+              onChange={(e) => handleChangeInputFields(e)}
+            />
+            <TextField
+              value={booking.number}
+              variant="outlined"
+              label="Phone Number"
+              name="number"
+              onChange={(e) => handleChangeInputFields(e)}
+            />
+          </Grid>
 
-          <br />
-          <br />
-          <InputLabel id="numberOfGuests">Number of guests</InputLabel>
-          <Select
-            labelId="numberOfGuests"
-            id="numberOfGuests"
-            label="Number of guests"
-            value={booking.numberOfGuests}
-            variant="outlined"
-            onChange={(e) => handleChangeNumberOfGuests(e)}
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="stretch"
+            className="edit-page__inner-form"
           >
-            {selectOptions()}
-          </Select>
-          <br />
-          <br />
-          <TextField
-            value={booking.firstName}
-            variant="outlined"
-            label="firstName"
-            name="firstName"
-            onChange={handleChangeFirstName}
-          />
-          <TextField
-            value={booking.lastName}
-            variant="outlined"
-            label="lastName"
-            name="lastName"
-            onChange={handleChangeLastName}
-          />
-          <TextField
-            value={booking.email}
-            variant="outlined"
-            label="email"
-            name="email"
-            onChange={handleChangeEmail}
-          />
-          <TextField
-            value={booking.number}
-            variant="outlined"
-            label="number"
-            name="number"
-            onChange={handleChangeNumber}
-          />
-          <button onClick={handleSubmit} type="button">
-            Update
-          </button>
+            <TextField
+              value={booking.date}
+              type="date"
+              variant="outlined"
+              label="Date of Arrival"
+              onChange={(e) => handleChangeDate(e)}
+            />
+            <RadioGroup
+              aria-label="numberOfGuests"
+              name="sitting"
+              value={booking.sitting}
+              onChange={(e) => handleChangeInputFields(e)}
+            >
+              <FormControlLabel
+                value="18:00"
+                control={<Radio />}
+                label="18:00"
+              />
+              <FormControlLabel
+                value="21:00"
+                control={<Radio />}
+                label="21:00"
+              />
+            </RadioGroup>
+
+            <InputLabel id="numberOfGuests">Number of guests</InputLabel>
+            <Select
+              id="numberOfGuests"
+              label="Number of guests"
+              value={booking.numberOfGuests}
+              variant="filled"
+              onChange={(e) => handleChangeNumberOfGuests(e)}
+            >
+              {selectOptions()}
+            </Select>
+          </Grid>
+
+          <Button type="submit" variant="outlined" className="submit-btn">
+            Check availability and update
+          </Button>
         </form>
-      ) : (
-        <p>Loading...</p>
       )}
-    </div>
+    </main>
   );
 }
