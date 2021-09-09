@@ -2,6 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function LandingPageComponent() {
+
+    function scroll() {
+        window.scrollBy(0, window.innerHeight)
+    }
+
     return (
         <div className="landingPageContainer">
             {/* <h1>late night brunch</h1> */}
@@ -15,7 +20,7 @@ export default function LandingPageComponent() {
                 <Link className="btn bookingBtn" to="/bookings">BOOKING</Link>
                 <Link className="btn contactBtn" to="/contact">CONTACT</Link>
 
-                <Link className="btn menuBtn" to="">MENU</Link>
+                <div className="btn menuBtn" onClick={scroll}>MENU</div>
             </div>
         </div>
     )
