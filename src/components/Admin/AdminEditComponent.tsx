@@ -77,7 +77,7 @@ export default function AdminEdit() {
             <h1>Edit</h1>
             {booking ?
                 <form>
-                    <TextField value={booking.date} variant="outlined" label="date" />
+                    <TextField value={booking.date} type="date" variant="outlined" label="date" />
                     <TextField value={booking.sitting} variant="outlined" label="sitting" />
                     <br />
                     <br />
