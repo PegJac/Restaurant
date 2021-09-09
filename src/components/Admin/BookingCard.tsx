@@ -45,6 +45,7 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
   const randomIdx: number = randomIndexGen(foodEmojis.length);
 
   return (
+
     <Card className="booking-card">
       <CardContent className="booking-card__content-container">
         <section className="booking-card__icon">

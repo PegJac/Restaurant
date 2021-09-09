@@ -12,7 +12,6 @@ import { logRoles } from "@testing-library/react";
 import { randomIndexGen } from "../../../utils/randomIndexGen";
 
 //helper functions
-import { pickArrivalDay } from "./BookingsComponentHelpers";
 import SittingsComponents from "../ChildComponents/SittingsComponents";
 
 const todaysDate = new Date().getDate();
@@ -62,3 +61,4 @@ test("User cannot choose sittings when there is no availability", () => {
   const sittingsButtons = screen.queryAllByRole("button");
   expect(sittingsButtons).toEqual([]);
 });
+
