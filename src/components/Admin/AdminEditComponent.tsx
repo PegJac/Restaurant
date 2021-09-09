@@ -39,6 +39,7 @@ export default function AdminEdit() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     snapshot?.map((booking, i) => {
       if (booking.bookingReference === id) {
         return setBooking(booking);

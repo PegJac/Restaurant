@@ -10,8 +10,12 @@ export const AdminBookingsComponent = () => {
   const bookinsRef = db.collection("bookings").orderBy("date");
 
   //Fetching data by using a firebase hook.
-  const [snapshot, loading, error] =
-    useCollectionData<IBookingState>(bookinsRef);
+  const [snapshot, loading, error] = useCollectionData<IBookingState>(
+    bookinsRef,
+    {
+      idField: "id",
+    }
+  );
 
   const bookingCards = snapshot?.map((booking, i) => {
     return <BookingCard bookingObj={booking} key={i} />;

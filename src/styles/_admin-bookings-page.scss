@@ -5,6 +5,10 @@
     @include center-col;
     margin: 1rem 0 3rem 0;
 
+    a {
+      margin-bottom: 4rem;
+    }
+
     .booking-cards-container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(20%, 17rem));
