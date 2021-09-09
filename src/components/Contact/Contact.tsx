@@ -1,4 +1,4 @@
-import GoogleMap from "./GoogleMap";
+import GoogleMap from "./ChildComponents/GoogleMap";
 import { Link } from "react-router-dom";
 
 function Contact() {

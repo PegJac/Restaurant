@@ -1,8 +1,14 @@
+@import './partials/mixins';
+
 .landingPageContainer {
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100%;
+
+  @include mediaQuery(768px) {
+    width: 60%;
+  }
 
   .heading {
     position: relative;
@@ -13,8 +19,14 @@
     background-image: url(../assets/landing_page_image.png);
     background-size: cover;
     height: 100%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
+
+    @include mediaQuery(1025px) {
+      height: 70%;
+    }
+    
 
     .btn {
       background-color: $buttonColor;
@@ -33,6 +45,10 @@
       align-self: flex-end;
       position: relative;
       top: 1em;
+
+      @include mediaQuery(768px) {
+        top: 5em;
+      }
     }
 
     .contactBtn {
@@ -43,6 +59,10 @@
       align-self: center;
       position: absolute;
       bottom: 1em;
+
+      @include mediaQuery(768px) {
+        display: none;
+      }
     }
   }
 }

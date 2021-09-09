@@ -8,6 +8,7 @@
 @import "styles/admin-bookings-page";
 @import "styles/contact-page";
 @import "styles/admin-edit-page";
+@import "styles/home-page";
 
 body {
   margin: 0;
@@ -17,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $backgroundColor;
+  color: $textColor;
 }
 
 html {

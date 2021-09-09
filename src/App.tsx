@@ -6,11 +6,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PageNotFound from "./components/PageNotFound";
 import Contact from "./components/Contact/Contact";
 import CancellationComponent from "./components/Cancellation/CancellationComponent";
-import ConfirmCancellationComponent from "./components/confirmCancellation/ConfirmCancellationComponent";
+import ConfirmCancellationComponent from "./components/ConfirmCancellation/ConfirmCancellationComponent";
 import { BookingConfirmation } from "./components/Bookings/BookingConfirmation";
 import { AdminBookingsComponent } from "./components/Admin/AdminBookingsComponent";
 import { AdminBookingComponent } from "./components/Admin/AdminBookingComponent";
-import BookingCard from "./components/Admin/BookingCard";
 import AdminEditComponent from "./components/Admin/AdminEditComponent";
 
 function App() {
@@ -19,8 +18,12 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <LandingPageComponent />
-            <MenuComponent />
+            <section className="homeContainer">
+              <section className="homePage">
+                <LandingPageComponent />
+                <MenuComponent />
+              </section>
+            </section>
           </Route>
           <Route path="/bookings">
             <BookingsComponent />
