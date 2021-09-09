@@ -3,7 +3,7 @@
 .App {
   .booking-card {
     width: 17rem;
-    height: 17rem;
+    height: 19rem;
     transition: all ease-in-out 300ms;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
       0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -34,28 +34,42 @@
     }
     .booking-card__actions {
       width: 100%;
-
-      .booking-card__actions--edit {
-        text-decoration: none;
+      .booking-card__actions__container {
+        display: flex;
+        justify-content: space-evenly;
+        .edit {
+          background-color: $backgroundColor;
+        }
+        .delete {
+          border: 1px solid $headingColor;
+        }
+        a {
+          width: 40%;
+          @include center-col;
+        }
         .edit-inner {
           margin-top: 1rem;
           @include center-row;
-          justify-content: flex-start;
+          justify-content: center;
           gap: 0.3rem;
-          width: fit-content;
+          width: 100%;
           height: 2rem;
-          padding: 0.3rem 0.6rem;
+          padding: 0.3rem 0.2rem;
           border-radius: 8px;
-          transition: background-color ease 400ms;
+          transition: all ease 400ms;
 
           &:hover {
-            background-color: $backgroundColor;
+            transform: scale(1.1);
           }
           p {
             color: black;
             padding-left: 0.3rem;
           }
         }
+      }
+
+      .booking-card__actions--edit {
+        text-decoration: none;
       }
     }
 
