@@ -1,4 +1,5 @@
 export interface IBookingState {
+  [x: string]: any;
   numberOfGuests?: number | null;
   date?: string | null;
   sitting?: string | null;
@@ -9,7 +10,6 @@ export interface IBookingState {
   number?: string | null;
   acceptedGDPR?: boolean | null;
   bookingReference?: string | null;
-  id?: string | null;
 }
 
 export const initialBookingState: IBookingState = {
@@ -23,5 +23,4 @@ export const initialBookingState: IBookingState = {
   number: null,
   acceptedGDPR: null,
   bookingReference: null,
-  id: null,
 };
