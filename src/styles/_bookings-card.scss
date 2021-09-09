@@ -35,8 +35,9 @@
     .booking-card__actions {
       width: 100%;
       .booking-card__actions__container {
+        align-items: baseline;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         .edit {
           background-color: $backgroundColor;
         }

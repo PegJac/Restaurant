@@ -1,0 +1,57 @@
+@import "./partials/mixins";
+@import "./partials/variables";
+
+.confirmCancellation-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  .heading {
+    margin-left: 2rem;
+  }
+  .confirmCancellation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+    height: 90vh;
+    justify-content: space-evenly;
+    h1 {
+      font-size: 2.5rem;
+      color: $headingColor;
+      @include mediaQuery(375px) {
+        font-size: 3rem;
+      }
+      @include mediaQuery(768px) {
+        font-size: 5rem;
+      }
+      @include mediaQuery(1024px) {
+        font-size: 7.3rem;
+      }
+    }
+    p {
+      font-size: 0.9rem;
+      color: $textColor;
+      @include mediaQuery(375px) {
+        font-size: 1.1rem;
+      }
+      @include mediaQuery(768px) {
+        font-size: 2.2rem;
+      }
+      @include mediaQuery(1024px) {
+        font-size: 2.6rem;
+      }
+    }
+    .home-button {
+      padding: 0.5rem 1.5rem;
+      background-color: $buttonColor;
+      border-radius: 50px;
+      .home-link {
+        text-decoration: none;
+        color: $textColor;
+      }
+    }
+  }
+}
