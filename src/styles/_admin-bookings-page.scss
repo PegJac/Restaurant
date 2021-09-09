@@ -2,11 +2,10 @@
 
 .App {
   .admin-bookings-page {
-    @include center-col;
     margin: 1rem 0 3rem 0;
-
-    a {
-      margin-bottom: 4rem;
+    .admin-logo {
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .booking-cards-container {
@@ -16,6 +15,16 @@
       justify-content: center;
       gap: 2rem;
       width: 100%;
+      @include mediaQuery(1400px) {
+        justify-content: unset;
+        display: flex;
+        flex-wrap: wrap;
+        width: 90%;
+        grid-gap: 6rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem;
+      }
     }
   }
 }
