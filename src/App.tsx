@@ -9,7 +9,7 @@ import CancellationComponent from "./components/Cancellation/CancellationCompone
 import ConfirmCancellationComponent from "./components/confirmCancellation/ConfirmCancellationComponent";
 import { BookingConfirmation } from "./components/Bookings/BookingConfirmation";
 import { AdminBookingsComponent } from "./components/Admin/AdminBookingsComponent";
-import { AdminBookingComponent } from "./components/Admin/AdminBookingComponent";
+
 import AdminEditComponent from "./components/Admin/AdminEditComponent";
 
 function App() {
@@ -36,9 +36,6 @@ function App() {
           </Route>
           <Route path="/admin/bookings">
             <AdminBookingsComponent />
-          </Route>
-          <Route path="/admin/booking/:id">
-            <AdminBookingComponent />
           </Route>
           <Route path="/admin/edit/:id">
             <AdminEditComponent />

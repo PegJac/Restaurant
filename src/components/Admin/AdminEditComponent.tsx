@@ -122,7 +122,7 @@ export default function AdminEdit() {
   }, [isUpdateAllowed]);
 
   if (redirect) {
-    return <Redirect to={`/admin/booking/${id}`} />;
+    return <Redirect to={`/admin/bookings`} />;
   }
 
   //adds 12 <MenuItem /> to the seclect tag
