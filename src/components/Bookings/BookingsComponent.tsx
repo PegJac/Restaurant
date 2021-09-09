@@ -74,15 +74,6 @@ const BookingsComponent: FC = () => {
     setNumberOfGuestsPicked(true);
   };
 
-  //TODO: add this as a button
-  // const resetBooking = () => {
-  //   updateComplexBookingObject(setBookingState, initialBookingState);
-  //   setNumberOfGuestsPicked(false);
-  //   setDatePicked(false);
-  //   setNumberOfGuestsPicked(false);
-  //   setBookingAllowed(false);
-  // };
-
   /** useEffects that will be used to scroll into the next part of the booking process */
   useEffect(() => {
     scrollToElement(calanderRef);
@@ -121,6 +112,7 @@ const BookingsComponent: FC = () => {
   //triggered when the user info form is submitted
   useEffect(() => {
     //check that all of bookingState's properties are truthies
+    console.log(bookingState);
     let isBookingPossible = Object.values(bookingState).every(Boolean);
     if (isBookingPossible) {
       bookingsCollectionRef.add(bookingState).then((res) => {
@@ -154,10 +146,6 @@ const BookingsComponent: FC = () => {
       });
     }
   }, [datePicked]);
-
-  // useEffect(() => {
-  //   console.log("State updated: ", bookingState);
-  // }, [bookingState]);
 
   return (
     <>
