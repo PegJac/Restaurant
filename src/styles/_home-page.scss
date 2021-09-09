@@ -1,0 +1,23 @@
+@import './partials/mixins';
+
+.homeContainer {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    @include mediaQuery(1025px){
+        padding: 0 15em;
+    }
+
+    .homePage {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    
+        @include mediaQuery(768px) {
+            flex-direction: row;
+        }
+
+        @include mediaQuery(1024px) {
+        }
+    }
+}
