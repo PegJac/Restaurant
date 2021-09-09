@@ -1,0 +1,36 @@
+@import './partials/variables';
+
+.menuContainer {
+    min-height: 100vh;
+    padding: 0 5%;
+    width: 90%;
+
+    @include mediaQuery(768px) {
+        width: 40%;
+    }
+
+    .heading {
+        position: relative;
+        top: 1em;
+    }
+
+    .itemsContainer {
+        padding-top: 1.5em;
+
+        .menuItemContainer {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1em;
+            font-size: .85em;
+            font-style: italic;
+    
+    /*         .menuItemName {
+                color: red;
+            } */
+        
+            .menuItemPrice {
+                font-weight: lighter;
+            }
+        }
+    }
+}

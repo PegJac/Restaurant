@@ -1,0 +1,26 @@
+@import "./partials/mixins";
+
+.App {
+  .edit-page {
+    text-align: center;
+    form {
+      margin-top: 3rem;
+      @include center-col;
+      gap: 2.2rem;
+      .edit-page__inner-form {
+        max-width: clamp(15rem, 50%, 80%);
+        gap: 0.9rem;
+      }
+
+      .submit-btn {
+        margin: 1rem 0 3rem 0;
+        padding: 0.6rem 1.6rem;
+        border-color: $headingColor;
+
+        &:hover {
+          background-color: $buttonColor;
+        }
+      }
+    }
+  }
+}
