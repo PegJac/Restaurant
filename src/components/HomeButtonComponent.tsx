@@ -3,7 +3,6 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
 export default function HomeButtonComponent() {
-
     return (
         <div>
             <Link to="/" className="homeLink">
