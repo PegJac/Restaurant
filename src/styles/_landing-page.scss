@@ -59,6 +59,7 @@
       align-self: center;
       position: absolute;
       bottom: 1em;
+      cursor: pointer;
 
       @include mediaQuery(768px) {
         display: none;
