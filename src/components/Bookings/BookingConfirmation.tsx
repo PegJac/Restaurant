@@ -27,12 +27,7 @@ export const BookingConfirmation = () => {
 
       <div className="bookingConfirmation-container">
         <h1>Thanks for your booking</h1>
-        <p>Be sure to check your email for a booking confirmation</p>
-        <p className="home-button">
-          <Link className="home-link" to="/">
-            Home
-          </Link>
-        </p>
+        <p>Be sure to check your email for confirmation</p>
       </div>
     </div>
   );
