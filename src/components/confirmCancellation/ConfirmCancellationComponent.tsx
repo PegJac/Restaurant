@@ -25,12 +25,7 @@ export default function ConfirmCancellationComponent() {
 
       <div className="confirmCancellation-container">
         <h1>Your booking has been cancelled! </h1>
-        <p>Be sure to check your email a confirmation</p>
-        <p className="home-button">
-          <Link className="home-link" to="/">
-            Home
-          </Link>
-        </p>
+        <p>Be sure to check your email for confirmation</p>
       </div>
     </div>
   );
