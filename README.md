@@ -40,10 +40,6 @@ For this project we decided on this file structure.
 
 - Houses most of our function to keep a tidy code
 
-#### Firebase (db)
-
-- This is where we inistiate our chosen database that we use throughout the whole application
-
 ```bash
 project
 │   README.md
@@ -64,9 +60,10 @@ project
 ```
 
 ## Firebase/Firestore
+- This is where we inistiate our chosen database that we use throughout the whole application
 - We use firebase hooks to minimize the amount of backend code. Firebase hooks can handle state, update dynamically on database changes in real time. 
 - Easy to use functions.
-- 
+
 ## EmailJS
 - Link to cancel booking is: http://localhost:3000/cancellation/%7B%7Bbooking_reference%7D%7D
 - To use this feature you have to use port 3000.
