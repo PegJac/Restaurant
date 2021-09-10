@@ -81,6 +81,18 @@ const BookingsComponent: FC = () => {
 
   //controlling the calander settings
   const updateDate = (date: string) => {
+    if (datePicked) {
+      //Runs if the user has already chosen a date but changes their mind, this will update the availability for the new date
+      //and re-render the SittingsComponent
+      const [numberOfBookedTables18, numberOfBookedTables21] =
+        checkAvailability(snapshot!, date!);
+
+      setSittingAvailability({
+        sitting18: numberOfBookedTables18! < 15,
+        sitting21: numberOfBookedTables21! < 15,
+      });
+    }
+
     updateComplexBookingObject(setBookingState, { date });
     setDatePicked(true);
   };
