@@ -112,7 +112,6 @@ const BookingsComponent: FC = () => {
   //triggered when the user info form is submitted
   useEffect(() => {
     //check that all of bookingState's properties are truthies
-    console.log(bookingState);
     let isBookingPossible = Object.values(bookingState).every(Boolean);
     if (isBookingPossible) {
       bookingsCollectionRef.add(bookingState).then((res) => {

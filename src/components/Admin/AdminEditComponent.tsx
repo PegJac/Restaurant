@@ -48,14 +48,9 @@ export default function AdminEdit() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snapshot]);
 
-  useEffect(() => {
-    console.log("State updated: ", booking);
-  }, [booking]);
-
   //Handles the changes for all contact information input fields and the sittings radio buttons
   function handleChangeInputFields(e: ChangeEvent) {
     const { name, value } = e.target as HTMLInputElement;
-    console.log(name, value);
     const formFieldObject = { [name]: value };
     updateComplexBookingObject(setBooking, formFieldObject);
   }
