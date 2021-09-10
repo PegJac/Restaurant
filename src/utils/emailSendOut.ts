@@ -25,7 +25,7 @@ export const sendEmailConfirmation = (stateObject: IBookingState) => {
         console.log("SUCCESS!", result.status, result.text);
       },
       (error) => {
-        console.log("FAILED...", error);
+        console.log("FAILED...", error.status, error.text);
         alert("Something went wrong with the email sendout");
       }
     );
@@ -49,8 +49,12 @@ export const sendEmailCancellation = (dataObject: IBookingState) => {
       "user_WFe2FaWw3TmyNA4ufQBU3"
     )
     .then(
+      (result) => {
+        console.log("SUCCESS!", result.status, result.text);
+      },
       (error) => {
-        alert("Something went wrong with the email sendout. Error: " + error);
+        console.log("FAILED...", error.status, error.text);
+        alert("Something went wrong with the email sendout");
       }
     );
 };
