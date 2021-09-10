@@ -13,6 +13,7 @@ export const AdminBookingsComponent = () => {
   const [snapshot, loading, error] = useCollectionData<IBookingState>(
     bookinsRef,
     {
+      //optional settings object that, in this case, returns the object ID form the DB
       idField: "id",
     }
   );
@@ -44,6 +45,7 @@ export const AdminBookingsComponent = () => {
         </svg>
       </Link>
       {loading && <Spinner />}
+      {/* //Card components here */}
       {!loading && (
         <section className="booking-cards-container">{bookingCards}</section>
       )}

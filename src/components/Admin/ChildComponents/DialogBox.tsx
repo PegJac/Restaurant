@@ -4,22 +4,20 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { useEffect, useState } from "react";
-import { Redirect } from "react-router";
 
 interface IDialogBox {
   open: boolean;
-  linkToDelete: string;
   closeDialog: () => void;
   deleteBooking: () => void;
 }
 
-export const DialogBox = ({
-  open,
-  linkToDelete,
-  closeDialog,
-  deleteBooking,
-}: IDialogBox) => {
+/**
+ * Component shows when the admin clicks on the "cancel" button
+ * "Cancel" and "Delete Booking" buttons trigger actions in the parent component
+ */
+
+export const DialogBox = ({ open, closeDialog, deleteBooking }: IDialogBox) => {
+  //Runs on button click, triggers actions on the parent BookingCard component
   const handleClose = (e: React.MouseEvent) => {
     const buttonClicked = (e.target as HTMLSpanElement).innerText;
 
@@ -33,7 +31,6 @@ export const DialogBox = ({
   return (
     <Dialog
       open={open}
-      // onClose={}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >

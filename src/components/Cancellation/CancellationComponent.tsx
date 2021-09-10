@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import firebase from "firebase";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
 import { Redirect, useParams } from "react-router";
 import { db } from "../../firebase";
 import { IBookingState } from "../../models/IBookingState";
@@ -9,12 +9,9 @@ import { sendEmailCancellation } from "../../utils/emailSendOut";
 
 function CancellationComponent() {
   const bookingsCollectionRef = db.collection("bookings");
-  const [snapshot, loading, error] = useCollectionData<IBookingState>(
-    bookingsCollectionRef,
-    {
-      idField: "id",
-    }
-  );
+  const [snapshot] = useCollectionData<IBookingState>(bookingsCollectionRef, {
+    idField: "id",
+  });
 
   const [redirect, setRedirect] = useState(false);
 
@@ -30,6 +27,7 @@ function CancellationComponent() {
   >();
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     snapshot?.map((booking) => {
       if (booking.bookingReference === bookingReference) {
         return setData(booking);

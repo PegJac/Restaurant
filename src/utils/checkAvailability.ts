@@ -16,7 +16,7 @@ interface ICheckAvailability {
  *
  * @param firestoreSnapshop  The database object that we can loop through and determain avilability
  * @param dateFromClientBooking The date that the user/admin wishes to make a reservation on
- * @returns number of booked tables for the 18:00 sittings + number of booked tables for the 21:00 sitting
+ * @returns number of booked tables for the 18:00 sittings + number of booked tables for the 21:00 sitting as an array
  */
 
 export const checkAvailability: ICheckAvailability = (

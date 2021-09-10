@@ -131,15 +131,14 @@ const BookingsComponent: FC = () => {
     scrollToElement(sittingRef);
 
     if (snapshot && !error) {
-      console.log(snapshot);
       const { date } = bookingState;
       const [numberOfBookedTables18, numberOfBookedTables21] =
         checkAvailability(snapshot, date!);
 
       setSittingAvailability({
         //following statements will be evaluated as a boolean
-        sitting18: numberOfBookedTables18! < 16,
-        sitting21: numberOfBookedTables21! < 16,
+        sitting18: numberOfBookedTables18! < 15,
+        sitting21: numberOfBookedTables21! < 15,
       });
     }
   }, [datePicked]);
