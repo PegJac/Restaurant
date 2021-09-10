@@ -10,7 +10,7 @@ This is a school assignment where we were assignt to create a resturant page wit
 
 ## File Structure
 
-For this project we decided on this file struckture.
+For this project we decided on this file structure.
 
 #### Prettier
 
@@ -64,6 +64,8 @@ project
 ```
 
 ## Firebase/Firestore
+- We use firebase hooks to minimize the amount of backend code. Firebase hooks can handle state, update dynamically on database changes in real time. 
+- Easy to use functions.
 
 ## Running Tests
 
