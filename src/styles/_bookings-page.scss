@@ -58,6 +58,10 @@ $bg-main: #fff0e5;
       scroll-snap-align: start;
       scroll-snap-stop: always;
 
+      .header {
+        margin: 1em 0 0 1em;
+      }
+
       .bookings-page__buttons {
         display: grid;
         grid-template-columns: repeat(6, auto);
