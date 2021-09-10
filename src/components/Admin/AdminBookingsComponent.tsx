@@ -10,8 +10,13 @@ export const AdminBookingsComponent = () => {
   const bookinsRef = db.collection("bookings").orderBy("date");
 
   //Fetching data by using a firebase hook.
-  const [snapshot, loading, error] =
-    useCollectionData<IBookingState>(bookinsRef);
+  const [snapshot, loading, error] = useCollectionData<IBookingState>(
+    bookinsRef,
+    {
+      //optional settings object that, in this case, returns the object ID form the DB
+      idField: "id",
+    }
+  );
 
   const bookingCards = snapshot?.map((booking, i) => {
     return <BookingCard bookingObj={booking} key={i} />;
@@ -40,6 +45,7 @@ export const AdminBookingsComponent = () => {
         </svg>
       </Link>
       {loading && <Spinner />}
+      {/* //Card components here */}
       {!loading && (
         <section className="booking-cards-container">{bookingCards}</section>
       )}

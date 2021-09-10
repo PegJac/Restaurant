@@ -1,0 +1,26 @@
+@import "./partials/mixins";
+@import "./partials/variables";
+
+.cancellationWrapper {
+  width: 100vw;
+  height: 100vh;
+  @include flex-col;
+  .heading {
+    margin-left: 2rem;
+  }
+  p {
+    text-align: center;
+  }
+  .cardContainer {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .cancellationCard {
+      @include mediaQuery(768px) {
+        transform: scale(1.3);
+      }
+    }
+  }
+}

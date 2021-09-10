@@ -36,10 +36,6 @@ const Buttons = (props: IButtons) => {
           key={i}
           className={lastPickedNumber === numberPickedByGuest ? "selected" : ""}
           onClick={(e) => {
-            // const thisElementsClasses = (e.target as HTMLInputElement)
-            //   .classList;
-            // thisElementsClasses.contains("selected") &&
-            //   thisElementsClasses.remove("selected");
             const chosenNumber = i + 1;
             setLastPickedNumber(chosenNumber);
 

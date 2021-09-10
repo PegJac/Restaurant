@@ -95,6 +95,7 @@ export function GuestInfoComponent(props: IGuestInfoComponent) {
             rules={{
               required: true,
               pattern:
+                // eslint-disable-next-line no-useless-escape
                 /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
             }}
             render={({ field: { onChange }, fieldState: { invalid } }) => (

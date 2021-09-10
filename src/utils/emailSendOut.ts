@@ -1,7 +1,6 @@
 import emailjs from "emailjs-com";
 import { ISendEmail } from "../models/ISendEmail";
 import { IBookingState } from "../models/IBookingState";
-import { useHistory } from "react-router-dom";
 
 export const sendEmailConfirmation = (stateObject: IBookingState) => {
   // takes the variabels from emailJs and giives them the value of the form of the user.
@@ -50,12 +49,8 @@ export const sendEmailCancellation = (dataObject: IBookingState) => {
       "user_WFe2FaWw3TmyNA4ufQBU3"
     )
     .then(
-      (result) => {
-        console.log("SUCCESS!", result.status, result.text);
-      },
       (error) => {
-        console.log("FAILED...", error);
-        alert("Something went wrong with the email sendout");
+        alert("Something went wrong with the email sendout. Error: " + error);
       }
     );
 };

@@ -1,6 +1,5 @@
 /**
  * Takes an element reference and scrolls that element into view
- *
  * @param element : element reference returned from the useRef hook
  */
 

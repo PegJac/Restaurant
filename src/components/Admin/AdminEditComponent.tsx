@@ -39,6 +39,7 @@ export default function AdminEdit() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     snapshot?.map((booking, i) => {
       if (booking.bookingReference === id) {
         return setBooking(booking);
@@ -47,14 +48,9 @@ export default function AdminEdit() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snapshot]);
 
-  useEffect(() => {
-    console.log("State updated: ", booking);
-  }, [booking]);
-
   //Handles the changes for all contact information input fields and the sittings radio buttons
   function handleChangeInputFields(e: ChangeEvent) {
     const { name, value } = e.target as HTMLInputElement;
-    console.log(name, value);
     const formFieldObject = { [name]: value };
     updateComplexBookingObject(setBooking, formFieldObject);
   }
@@ -78,7 +74,6 @@ export default function AdminEdit() {
   ) {
     const numberOfGuests = Number((e.target as HTMLInputElement).value);
     const numberOfTables = countNumberOfTables(numberOfGuests);
-
     updateComplexBookingObject(setBooking, { numberOfGuests, numberOfTables });
   }
 
@@ -88,15 +83,19 @@ export default function AdminEdit() {
     e.preventDefault();
 
     if (booking) {
+      //Check if there's availability on the selected date
       const [sitting18, sitting21] = checkAvailability(snapshot!, booking.date);
       const errorMessage =
         "There aren't enough tables for the date and sitting you've chosen";
       const datePassed = isDatePassed(booking.date);
+
+      //Make sure the date the admin chooses has not passed
       if (datePassed) {
         return toast.error(
           "Please make sure the date you've chosen hasn't already passed"
         );
       }
+      //Make sure the chosen sitting is not fully booked
       if (booking.sitting === "18:00") {
         if (booking.numberOfTables + sitting18 > 15) {
           return toast.error(errorMessage);
@@ -113,6 +112,8 @@ export default function AdminEdit() {
 
   useEffect(() => {
     const updatedBooking = { ...booking };
+    //Delete the ID field from the object before sending it to the DB
+    //the ID is not save inside the actual object in the DB, so we don't want to send it back to the DB when we update the object
     delete updatedBooking.id;
     if (isUpdateAllowed) {
       db.collection("bookings").doc(booking?.id).update(updatedBooking);
@@ -121,7 +122,7 @@ export default function AdminEdit() {
   }, [isUpdateAllowed]);
 
   if (redirect) {
-    return <Redirect to={`/admin/booking/${id}`} />;
+    return <Redirect to={`/admin/bookings`} />;
   }
 
   //adds 12 <MenuItem /> to the seclect tag

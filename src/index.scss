@@ -9,6 +9,10 @@
 @import "styles/contact-page";
 @import "styles/admin-edit-page";
 @import "styles/home-page";
+@import "styles/home-button";
+@import "styles/booking-confirmation-page";
+@import "styles/confirm-cancellation-page";
+@import "styles/cancellation-component-page";
 
 body {
   margin: 0;
@@ -18,7 +22,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $backgroundColor;
-  color: $textColor;
+  
+  .heading {
+    cursor: pointer;
+  }
 }
 
 html {

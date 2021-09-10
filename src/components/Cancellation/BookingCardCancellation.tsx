@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import { Edit, Delete } from "@material-ui/icons";
 import { randomIndexGen } from "../../utils/randomIndexGen";
-import { DialogBox } from "./ChildComponents/DialogBox";
+import { DialogBox } from "../Admin/ChildComponents/DialogBox";
 import { Button } from "@material-ui/core";
 import { deleteBookingAndSendConfirmation } from "../../utils/deleteBookingFromDB";
 
@@ -14,10 +14,9 @@ interface IBookingCard {
   bookingObj: IBookingState;
 }
 
-export default function BookingCard({ bookingObj }: IBookingCard) {
+export default function BookingCardCancellation({ bookingObj }: IBookingCard) {
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
 
-  //randomIndexGen will pick a random emoji from this array and displayed on the top of each card
   const foodEmojis = [
     "🍗",
     "🥩",
@@ -59,10 +58,11 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
   };
 
   return (
-    <Card className="booking-card">
+    <Card className="booking-card cancellationCard">
       {dialogBoxOpen && (
         <DialogBox
           open={dialogBoxOpen}
+          linkToDelete={bookingReference!}
           closeDialog={toggleDialogBox}
           deleteBooking={deleteBookingFromDB}
         />
@@ -98,15 +98,9 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
               <Link
                 to={`/admin/edit/${bookingReference}`}
                 className="booking-card__actions--edit"
-              >
-                <div className="edit-inner edit">
-                  <Edit style={{ color: "#FF7B51" }} />
-                  <p>Edit</p>
-                </div>
-              </Link>
+              ></Link>
               <Button
                 onClick={toggleDialogBox}
-                // to={`/admin/edit/${bookingReference}`}
                 className="booking-card__actions--edit"
               >
                 <div className="edit-inner delete">
@@ -122,8 +116,7 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
   );
 }
 
-//For debug purposes
-BookingCard.defaultProps = {
+BookingCardCancellation.defaultProps = {
   numberOfGuests: 3,
   numberOfTables: 1,
   firstName: "Danny",
