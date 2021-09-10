@@ -17,6 +17,7 @@ interface IBookingCard {
 export default function BookingCard({ bookingObj }: IBookingCard) {
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
 
+  //randomIndexGen will pick a random emoji from this array and displayed on the top of each card
   const foodEmojis = [
     "🍗",
     "🥩",
@@ -62,7 +63,6 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
       {dialogBoxOpen && (
         <DialogBox
           open={dialogBoxOpen}
-          linkToDelete={bookingReference!}
           closeDialog={toggleDialogBox}
           deleteBooking={deleteBookingFromDB}
         />
@@ -122,6 +122,7 @@ export default function BookingCard({ bookingObj }: IBookingCard) {
   );
 }
 
+//For debug purposes
 BookingCard.defaultProps = {
   numberOfGuests: 3,
   numberOfTables: 1,

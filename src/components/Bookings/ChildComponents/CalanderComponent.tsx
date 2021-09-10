@@ -25,11 +25,13 @@ const CalanderComponent = ({ change }: CalanderProp) => {
         }}
         footerToolbar={{ left: "", center: "", right: "prev,next" }}
         dateClick={(e) => {
+          //Controll that the date the user picked hasen't already passed
           const todaysDate = new Date(getTodaysDate()).getTime();
           const datePickedByGuest = new Date(e.dateStr).getTime();
           if (todaysDate > datePickedByGuest) {
             return toast.error("Day you picked has already passed");
           } else {
+            //Update parent state object
             change(e.dateStr);
           }
         }}

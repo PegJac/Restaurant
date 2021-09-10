@@ -31,6 +31,7 @@ export default function Spinner({ visible }: ISpinner) {
   }
 }
 
+//for debug purposes
 Spinner.defaultProps = {
   visible: true,
 };
