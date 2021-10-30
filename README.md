@@ -2,6 +2,9 @@
 
 This is a school assignment where we were assignt to create a resturant page with the ablility to create a reservation onto an database using react with typescript. And then be able to edit it trough an admin page. Trough every request the user gets an email confirmation of either a cancellation or confirmation of a reservation.
 
+## View live page
+https://late-night-brunch.netlify.app/
+
 ## How to get started
 
 1.  run `git clone https://github.com/PegJac/Restaurant.git`
