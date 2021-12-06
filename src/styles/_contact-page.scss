@@ -1,5 +1,5 @@
-@use '../partials/variables';
-@use '../styles/partials/mixins';
+@import './partials/variables';
+@import './partials/mixins';
 
 .contactWrapper {
   @include mediaQuery(1024px) {
